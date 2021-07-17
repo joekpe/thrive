@@ -32,4 +32,5 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('books', BookController::class);
+    Route::get('/books/{id}/delete', [BookController::class, 'destroy']);
 });

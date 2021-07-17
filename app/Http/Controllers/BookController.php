@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\SubCategory;
+use App\Models\Location;
+use App\Models\MultiCurrency;
 use Auth;
 
 class BookController extends Controller
@@ -26,7 +30,11 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+        $sub_categories = SubCategory::all();
+        $locations = Location::all();
+        $currencies = MultiCurrency::all();
+        return view('books.create')->with('data', [$categories, $sub_categories, $locations, $currencies]);
     }
 
     /**
@@ -37,7 +45,30 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $this->validate($request, [
+            'name' => 'required',
+            'currency' => 'required',
+            'selling_price' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'category' => 'required',
+            'sub_category' => 'required',
+            'threshold' => 'numeric'
+        ]);
+
+        
+
+        Book::create([
+            'name' => $request->name,
+            'currency' => $request->currency,
+            'selling_price' => $request->selling_price,
+            'quantity' => $request->quantity,
+            'category' => $request->category,
+            'sub_category' => $request->sub_category,
+            'threshold' => $request->threshold,
+            'user_id' => Auth::user()->id
+        ]);
+        return back()->with('success', 'Book has been created');
     }
 
     /**
@@ -59,7 +90,11 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        return view('books.edit')->with('book', Book::find($id));
+        $categories = Category::all();
+        $sub_categories = SubCategory::all();
+        $locations = Location::all();
+        $currencies = MultiCurrency::all();
+        return view('books.edit')->with('book', Book::find($id))->with('data', [$categories, $sub_categories, $locations, $currencies]);
     }
 
     /**
@@ -71,7 +106,27 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //dd($request);
+        $this->validate($request, [
+            'name' => 'required',
+            'currency' => 'required',
+            'selling_price' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'category' => 'required',
+            'sub_category' => 'required',
+            'threshold' => 'numeric'
+        ]);
+
+        $book = Book::find($id);
+        $book->name = $request->name;
+        $book->currency = $request->currency;
+        $book->selling_price = $request->selling_price;
+        $book->quantity = $request->quantity;
+        $book->category = $request->category;
+        $book->sub_category = $request->sub_category;
+        $book->threshold = $request->threshold;
+
+        return $book->save() ? back()->with('success', 'Book updated') : back()->with('error', 'Book not updated')->withInput();
     }
 
     /**
@@ -82,6 +137,6 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Book::find($id)->delete() ? back()->with('success', 'Book deleted') : back()->with('error', 'Book not deleted');
     }
 }

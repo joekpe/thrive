@@ -5,9 +5,22 @@ BOOKS
 @endsection
 
 @section('content')
+@if(Session::has('success'))
+    <div class="alert alert-success text-center">
+        {{Session::get('success')}}
+    </div>
+@elseif (Session::has('error'))
+    <div class="alert alert-danger text-center">
+        {{Session::get('error')}}
+    </div>
+@endif  
 <div class="card">
     <div class="card-header">
-      <h4 class="card-title"> My Books</h4>
+      <h4 class="card-title"> My Books 
+        <a href="/books/create" class="btn btn-success btn-xs pull-right">
+          <i class="nc-icon nc-plus"></i> <span class="hidden-xs hidden-sm"> + ADD NEW BOOK</span>
+        </a>
+      </h4>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -37,7 +50,7 @@ BOOKS
                         <a href="/books/{{ $book->id }}/edit" class="btn btn-success">
                             <i class="nc-icon nc-ruler-pencil"></i> <span class="hidden-xs hidden-sm">Edit</span>
                         </a>
-                        <a href="" class="btn btn-danger">
+                        <a href="/books/{{ $book->id }}/delete" class="btn btn-danger">
                             <i class="nc-icon nc-simple-remove"></i> <span class="hidden-xs hidden-sm">Delete</span>
                         </a>
                     </td>
