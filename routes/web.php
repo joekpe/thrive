@@ -14,8 +14,14 @@ use App\Http\Controllers\BookController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => '/'], function (){
+    Route::any('', [App\Http\Controllers\Customers\HomeController::class, 'home'])->name('website-home');
+    Route::any('authors', [App\Http\Controllers\Customers\AuthorController::class, 'allAuthors'])->name('website-authors');
+    Route::any('all-books', [App\Http\Controllers\Customers\BookController::class, 'allBooks'])->name('website-allBooks');
+    Route::any('new-arrivals', [App\Http\Controllers\Customers\BookController::class, 'newArrivals'])->name('website-newArrivals');
+    Route::any('best-selling', [App\Http\Controllers\Customers\BookController::class, 'bestSelling'])->name('website-bestSelling');
+    Route::any('all-categories', [App\Http\Controllers\Customers\BookController::class, 'allCategories'])->name('website-allCategories');
+
 });
 
 
