@@ -7,10 +7,10 @@ use App\Models\Book;
 
 class DashboardController extends Controller
 {
-    
+
     public function index()
     {
         $my_no_of_books = Book::mycount();
-        return view('dashboard.index')->with('books', $my_no_of_books);
+        return view('dashboard.index')->with('books', 0);
     }
 }

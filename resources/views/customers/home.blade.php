@@ -206,7 +206,7 @@
                         <div class="item top-item">
                             <div class="product-image">
                                 <div class="image" style="height: 30em">
-                                    <img src="{{asset('website/images/ui/book1.jpeg')}}" alt="">
+                                    <img src="{{asset('website/images/ui/book01.jpg')}}" alt="">
                                     <span class="price">
 													<span class="amount">$ 120.000</span>
 												</span>
@@ -241,7 +241,7 @@
                         <div class="item top-item">
                             <div class="product-image">
                                 <div class="image" style="height: 30em">
-                                    <img src="{{asset('website/images/ui/book2.jpeg')}}" alt="">
+                                    <img src="{{asset('website/images/ui/book2.jpg')}}" alt="">
                                     <span class="price">
 													<span class="amount">$ 120.000</span>
 												</span>
@@ -276,7 +276,7 @@
                         <div class="item top-item">
                             <div class="product-image">
                                 <div class="image" style="height: 30em">
-                                    <img src="{{asset('website/images/ui/book3.jpeg')}}" alt="">
+                                    <img src="{{asset('website/images/ui/book3.jpg')}}" alt="">
                                     <span class="price">
 													<span class="amount">$ 120.000</span>
 												</span>
@@ -311,7 +311,7 @@
                         <div class="item top-item">
                             <div class="product-image">
                                 <div class="image" style="height: 30em">
-                                    <img src="{{asset('website/images/ui/book4.jpeg')}}" alt="">
+                                    <img src="{{asset('website/images/ui/book4.jpg')}}" alt="">
                                     <span class="price">
 													<span class="amount">$ 120.000</span>
 												</span>
@@ -346,7 +346,7 @@
                         <div class="item top-item">
                             <div class="product-image">
                                 <div class="image" style="height: 30em">
-                                    <img src="{{asset('website/images/ui/book5.jpeg')}}" alt="">
+                                    <img src="{{asset('website/images/ui/book5.jpg')}}" alt="">
                                     <span class="price">
 													<span class="amount">$ 120.000</span>
 												</span>
@@ -381,7 +381,7 @@
                         <div class="item top-item">
                             <div class="product-image">
                                 <div class="image" style="height: 30em">
-                                    <img src="{{asset('website/images/ui/book6.jpeg')}}" alt="">
+                                    <img src="{{asset('website/images/ui/book6.jpg')}}" alt="">
                                     <span class="price">
 													<span class="amount">$ 120.000</span>
 												</span>

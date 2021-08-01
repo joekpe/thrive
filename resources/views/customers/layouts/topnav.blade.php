@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                     <div class="left-topbar">
-                        <p>Welcome to our store. Please <a href="#"> login </a> or <a href="#"> register</a>.</p>
+                        <p>Welcome to our store. Please <a href="{{route('login')}}"> Login </a> or <a href="{{route('register')}}"> Register</a>.</p>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
@@ -62,7 +62,7 @@
                             <li class="list-menu-shop">
                                 <div class="shop-cart">
                                     <div class="image-shop">
-                                        <img src="{{asset('website/images/media/product/shop-1.png')}}" alt="">
+                                        <img src="{{asset('website/images/ui/book01.jpg')}}" alt="" style="width: 3em">
                                     </div>
                                     <div class="next-shop">
                                         <a href=""><i class="fa fa-times-circle"></i></a>
@@ -79,6 +79,7 @@
                                     </div>
                                 </div>
                             </li>
+
                             <li class="shop-input">
                                 <div class="text-shop clearfix">
                                     <p class="sub-total">SUBTOTAL</p>

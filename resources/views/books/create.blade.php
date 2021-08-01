@@ -18,7 +18,7 @@ CREATE NEW BOOK
     <div class="alert alert-success text-center">
         {{Session::get('success')}}
     </div>
-@endif   
+@endif
 <form method="POST" action="{{ route('books.store')}}" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
@@ -65,7 +65,7 @@ CREATE NEW BOOK
         </div>
     </div>
     <div class="form-row">
-        
+
         <div class="form-group col-md-6">
             <label for="sub_category">Location</label>
             <select id="sub_category" class="form-control" name="location">
@@ -79,12 +79,14 @@ CREATE NEW BOOK
             <label for="threshold">Threshold</label>
             <input type="number" class="form-control" id="threshold" placeholder="Enter book threshold" name="threshold" min="0" value="0">
         </div>
-        
+
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="image">Image</label>
-            <input type="file" class="form-control" id="image" name="image" placeholder="Click to select image">
+            <button class="btn btn-block btn-primary">
+                <input type="file" class="form-control" id="image" name="image" value=""> Pick Image
+            </button>
         </div>
     </div>
     <button type="submit" class="btn btn-primary">Create Book</button>
