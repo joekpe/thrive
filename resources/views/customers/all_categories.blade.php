@@ -1,7 +1,4 @@
 @extends('customers.layouts.master')
-@push('styles')
-
-@endpush
 @section('content')
     <section class="content-grid" style="margin-top: 1em">
         <div class="images-banner" style="height: 10em;background-image: url({{asset('website/images/ui/banner003@2x.png')}});background-size: cover ">
@@ -12,13 +9,6 @@
     <div class="container" style="margin-top: 5em">
         <div class="row">
 
-            <div class='row dashboard-cards'>
-
-            </div>
-
         </div>
     </div>
 @endsection
-@push('scripts')
-
-@endpush
