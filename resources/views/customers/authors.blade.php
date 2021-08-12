@@ -14,58 +14,29 @@
                 <div class="row">
                     <div class="latest-blog">
                         <div class="box-content content-blog">
+                            @forelse($authors as $author)
                         <div class="col-lg-4" style="margin-bottom: 4em">
                             <div class="blog-images" style="height: 30em;overflow-y: scroll">
-                                <img src="{{asset('website/images/ui/author1.jpeg')}}" alt="">
+                                <img src="{{asset('storage')}}/{{$author->avatar}}" alt="">
                             </div>
                             <div class="blog-content">
                                 <div class="extra">
-                                    <h2 class="name"><a href="#" style="color: #212121">PROPHET ATSU MANASSEH</a></h2>
-                                    <div class="date">Total Books : 300</div>
+                                    <h2 class="name"><a href="#" style="color: #212121">{{$author->name}}</a></h2>
+                                    <div class="date">Total Books : {{totalBooks($author->id)}}</div>
                                     <div class="like">Sold : 256</div>
                                 </div>
                                 <div class="des">
-                                    This is a small bio on the author to let customers feel personal.
-                                    <a href="#" class="read-more">Browse Books</a>
+                                    <a href="{{route('website-authors-books', $author->id)}}" class="read-more">Browse Books</a>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-4" style="margin-bottom: 4em">
-                            <div class="blog-images" style="height: 30em;overflow-y: scroll">
-                                <img src="{{asset('website/images/ui/author2.jpeg')}}" alt="">
-                            </div>
-                            <div class="blog-content">
-                                <div class="extra">
-                                    <h2 class="name"><a href="#" style="color: #212121">PROPHET ATSU MANASSEH</a></h2>
-                                    <div class="date">Total Books : 300</div>
-                                    <div class="like">Sold : 256</div>
+                                @empty
+                                <div class="col-lg-12">
+                                    <div class="alert alert-primary" role="alert">
+                                        Oops! There are no authors in our system at this time.
+                                    </div>
                                 </div>
-                                <div class="des">
-                                    This is a small bio on the author to let customers feel personal.
-                                    <a href="#" class="read-more">Browse Books</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4" style="margin-bottom: 4em">
-
-                            <div class="blog-images" style="height: 30em;overflow-y: scroll">
-                                <img src="{{asset('website/images/ui/author3.jpeg')}}" alt="">
-                            </div>
-                            <div class="blog-content">
-                                <div class="extra">
-                                    <h2 class="name"><a href="#" style="color: #212121">PROPHET ATSU MANASSEH</a></h2>
-                                    <div class="date">Total Books : 300</div>
-                                    <div class="like">Sold : 256</div>
-                                </div>
-                                <div class="des">
-                                    This is a small bio on the author to let customers feel personal.
-                                    <a href="#" class="read-more">Browse Books</a>
-                                </div>
-                            </div>
-                        </div>
-
+                                @endforelse
                         </div>
 
                     </div>

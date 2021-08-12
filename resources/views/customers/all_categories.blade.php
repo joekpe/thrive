@@ -8,6 +8,22 @@
 
     <div class="container" style="margin-top: 5em">
         <div class="row">
+            @forelse($categories as $category)
+            <div class="col-lg-4">
+                <a href="{{route('website-categories-books', $category->id)}}">
+                    <div class="card" style="height: 7em">
+                        <p align="middle" style="font-size: 1.5em;margin-top:2em"><i class="fa fa-bookmark-o"></i> {{$category->name}} </p>
+                        <br/>
+                    </div>
+                </a>
+            </div>
+            @empty
+                <div class="col-lg-12">
+                    <div class="alert alert-primary" role="alert">
+                        There are no categories in the system at this time.
+                    </div>
+                </div>
+            @endforelse
 
         </div>
     </div>

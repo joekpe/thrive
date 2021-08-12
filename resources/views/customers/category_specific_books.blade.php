@@ -1,30 +1,31 @@
 @extends('customers.layouts.master')
 @section('content')
     <section class="content-grid" style="margin-top: 1em">
-        <div class="images-banner" style="height: 10em;background-image: url({{asset('website/images/ui/banner003@2x.png')}});background-size: cover ">
-            <p style="padding-top: 2em;font-size: 2em;color: #fff" align="middle">New Arrivals</p>
+        <div class="images-banner"
+             style="height: 10em;background-image: url({{asset('website/images/ui/banner003@2x.png')}});background-size: cover ">
+            <p style="padding-top: 2em;font-size: 2em;color: #fff"
+               align="middle">{{categoryName(request()->route('id'))->name}} - Category</p>
         </div>
     </section>
 
     <div class="container" style="margin-top: 5em">
         <div class="row">
-            @forelse($newArrivals as $newArrival)
+            @forelse($books as $book)
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="margin-bottom: 2em">
                     <div class="item top-item">
-                        <a href="{{route('website-book-details', $newArrival->id)}}">
+                        <a href="{{route('website-book-details',$book->id)}}">
                             <div class="product-image">
                                 <div class="image" style="height: 30em">
-                                    <img src="{{asset('storage')}}/{{$newArrival->image}}" alt="">
+                                    <img src="{{asset('storage')}}/{{$book->image}}" alt="">
                                     <span class="price">
-													<span
-                                                        class="amount">{{currency($newArrival->currency)->code}} {{$newArrival->selling_price}}</span>
-												</span>
+										<span class="amount">{{currency($book->currency)->code}} {{$book->selling_price}}</span>
+                                    </span>
                                 </div>
                             </div>
                         </a>
 
                         <h4 class="names">
-                            <a href="{{route('website-book-details', $newArrival->id)}}">{{$newArrival->name}}</a>
+                            <a href="{{route('website-book-details',$book->id)}}">{{$book->name}}</a>
                         </h4>
                         <hr/>
                         <div class="cart-text product-cart">
@@ -45,6 +46,7 @@
                     </div>
                 </div>
             @endforelse
+
         </div>
     </div>
 @endsection

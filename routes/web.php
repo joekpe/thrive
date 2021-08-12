@@ -17,10 +17,14 @@ use App\Http\Controllers\BookController;
 Route::group(['prefix' => '/'], function (){
     Route::any('', [App\Http\Controllers\Customers\HomeController::class, 'home'])->name('website-home');
     Route::any('authors', [App\Http\Controllers\Customers\AuthorController::class, 'allAuthors'])->name('website-authors');
+    Route::any('authors-specific/{id}', [App\Http\Controllers\Customers\AuthorController::class, 'specificAuthorBooks'])->name('website-authors-books');
     Route::any('all-books', [App\Http\Controllers\Customers\BookController::class, 'allBooks'])->name('website-allBooks');
+    Route::any('book-details/{id}', [App\Http\Controllers\Customers\BookController::class, 'bookDetails'])->name('website-book-details');
     Route::any('new-arrivals', [App\Http\Controllers\Customers\BookController::class, 'newArrivals'])->name('website-newArrivals');
     Route::any('best-selling', [App\Http\Controllers\Customers\BookController::class, 'bestSelling'])->name('website-bestSelling');
     Route::any('all-categories', [App\Http\Controllers\Customers\BookController::class, 'allCategories'])->name('website-allCategories');
+    Route::any('categories/{id}', [App\Http\Controllers\Customers\BookController::class, 'categoryDetails'])->name('website-categories-books');
+    Route::any('addtocart/{id}', [App\Http\Controllers\Customers\CartController::class, 'addToCart'])->name('website-book-cart');
 
 });
 

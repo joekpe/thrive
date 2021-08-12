@@ -13,6 +13,7 @@
     <meta content="INDEX,FOLLOW" name="robots">
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" media="all" type="text/css" rel="stylesheet"/>
     <link href="{{asset('website/css/styles.css')}}" media="all" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{{asset('website/js/font-awesome-4.5.0/css/font-awesome.min.css')}}">
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
