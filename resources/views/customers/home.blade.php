@@ -59,9 +59,10 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="latest-blog">
-                            <div class="box-content content-blog">
+
+                    <div class="latest-blog">
+                        <div class="box-content content-blog">
+                            <div class="row">
                                 @forelse($authors as $author)
                                     <div class="col-lg-4" style="margin-bottom: 4em">
                                         <div class="blog-images" style="height: 30em;overflow-y: scroll">
