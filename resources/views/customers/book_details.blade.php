@@ -40,7 +40,8 @@
                                         tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat
                                         consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per
                                         conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu
-                                        felis dapibus.</p>
+                                        felis dapibus.
+                                    </p>
                                     <span class="price">
 											<span
                                                 class="amount">{{currency($book->currency)->code}} {{$book->selling_price}}</span>
