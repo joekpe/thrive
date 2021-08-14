@@ -11,7 +11,7 @@
                                 BECOME AN AUTHOR TODAY ON THRIVE BOOKS
                             </label>
                             <div class="col-input">
-                                <button type="submit" class="btn btn-primary">Sign Up</button>
+                                <a href="/author_register" class="btn btn-primary">Sign Up</a>
                             </div>
 
                         </form>

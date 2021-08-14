@@ -10,6 +10,18 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'invoice_number',
+        'book_id',
+        'book_name',
+        'book_price',
+        'book_quantity',
+        'shipping_details_id',
+        'user_id',
+        'author_id',
+        'currency'
+];
+
     public function customer(){
         return $this->belongsTo(User::class, 'user_id');
     }

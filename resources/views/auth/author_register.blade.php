@@ -49,14 +49,21 @@
             <input required type="password" id="password" class="fadeIn third" name="password_confirmation" value="{{old('password_confirmation')}}"
                    placeholder="Password Confirmation">
 
-            <input type="hidden" name="role_id" value="4">
+            <input type="hidden" name="role_id" value="3">
+
+            
+            <div id="avatar">
+                <hr>
+                <label for="avatar">Upload your image</label>
+                <input required type="file" id="avatar" class="fadeIn second" name="avatar" placeholder="Author Image" required>
+            </div>
 
             
             <button type="submit" class="btn btn-primary">REGISTER</button>
 
             <!-- Remind Password -->
             <div id="formFooter">
-                <a class="underlineHover" href="{{route('author_register')}}">Become an Author</a><br>
+                <a class="underlineHover" href="{{route('register')}}">Become an Customer</a><br>
                 <a class="underlineHover" href="{{route('login')}}">I have an account</a><br>
                 <a class="underlineHover" href="/">Back to Website</a>
             </div>
@@ -77,5 +84,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
         integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

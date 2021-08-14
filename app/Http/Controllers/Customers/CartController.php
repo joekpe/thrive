@@ -5,25 +5,89 @@ namespace App\Http\Controllers\Customers;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Models\ShippingDetail;
+use Auth;
+use App\Models\Order;
 
 class CartController extends Controller
 {
-    public function addToCart($bookID) {
-        $book_name = Book::query()->where('id','=',$bookID)->first();
-        if(\Session::get('booksCart')){
-            $existing_books = \Session::get('booksCart');
-
-            foreach ($existing_books as $book){
-                if($book !== $bookID){
-                    \Session::push('booksCart',$bookID);
-                    return redirect()->back()->with('success', 'You have added '.$book_name->name.' to cart');
-                }else{
-                    return redirect()->back()->with('errorMessage', 'You have already added this book to cart');
-                }
+    public function addToCart(Request $request) {
+        
+        if(session()->has('booksCart')){
+            $book_ids = [];
+            foreach(session()->get('booksCart') as $bookCart){
+                array_push($book_ids, $bookCart['book_id']);
             }
+
+            if(!in_array($request->book_id, $book_ids)){
+                session()->push('booksCart', $request->all());
+                return redirect()->back()->with('success', 'You have added '.$request->book_name.' to cart');
+            }else{
+                return redirect()->back()->with('errorMessage', 'You have already added this book to cart');
+            }
+
+            dd($book_ids);
+
+            
         }else{
-            \Session::push('booksCart', $bookID);
-            return redirect()->back()->with('success', 'You have added '.$book_name->name.' to cart');
+            session()->push('booksCart', $request->all());
+            return redirect()->back()->with('success', 'You have added '.$request->book_name.' to cart');
+        }
+       
+    }
+
+    public function clear_cart(){
+        session()->flush();
+        return redirect()->back()->with('success', 'Cart cleared!!!');
+    }
+
+    public function delete_cart_item($id){
+        $cart = session()->pull('booksCart', []); // Second argument is a default value
+        if(($key = array_search($id, array_column($cart, 'book_id') )) !== false) {
+            unset($cart[$key]);
+        }
+        $new_cart = array_values($cart);
+        //dd($new_cart);
+        session()->put('booksCart', $new_cart);
+        //dd(session()->get('booksCart'));
+        return redirect()->back()->with('success', 'Item deleted!!!');
+    }
+
+    public function cart(){
+        return view('customers.cart');
+    }
+
+    public function checkout(Request $request){
+        if(session()->has('booksCart')){
+            $this->validate($request, [
+                'name' => 'required',
+                'phone_number' => 'required',
+                'location' => 'required'
+                
+            ]);
+            //dd($request->except(['_token']) + ['user_id' => Auth::user()->id]);
+            $shipping_details = ShippingDetail::create($request->except(['_token']) + ['user_id' => Auth::user()->id]);
+            //dd($shipping_details);
+            $latest_invoice = Order::orderBy('created_at', 'desc')->first();
+            foreach (session()->get('booksCart') as $cart_book) {
+                $book = Book::find($cart_book['book_id']);
+                Order::create([
+                    'invoice_number' => $latest_invoice->invoice_number + 1,
+                    'book_id' => $book->id,
+                    'book_name' => $book['name'],
+                    'book_price' => $book['selling_price'],
+                    'book_quantity' => $cart_book['quantity'],
+                    'shipping_details_id' => $shipping_details->id,
+                    'user_id' => Auth::user()->id,
+                    'author_id' => $book['user_id'],
+                    'currency' => $book['currency']
+                ]);
+            }
+            session()->forget('booksCart');
+            return redirect()->route('website-home')->with('success', 'Order successful');
+        }
+        else{
+            return redirect()->route('website-home')->with('success', 'Your cart is empty');
         }
     }
 }
