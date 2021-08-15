@@ -62,7 +62,7 @@
                 <li class="">
                     <a target="_self" href="{{ route('voyager.balances.index') }}">
                         <span class="icon voyager-credit-card"></span> 
-                        <span class="title">Account Balance</span>
+                        <span class="title">Finances</span>
                     </a> <!---->
                 </li>
             </ul>

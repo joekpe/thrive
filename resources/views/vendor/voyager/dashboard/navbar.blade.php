@@ -1,6 +1,3 @@
-{{-- @php
-    $balance = App/Models/Balances::where('user_id', Auth::user()->id)->last();
-@endphp --}}
 <nav class="navbar navbar-default navbar-fixed-top navbar-top">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -35,7 +32,19 @@
             </ol>
             @show
         </div>
+        
+
+
+
+        
         <ul class="nav navbar-nav @if (__('voyager::generic.is_rtl') == 'true') navbar-left @else navbar-right @endif">
+            <ol class="breadcrumb hidden-xs">
+            
+                <li class="active">
+                    <h5>Balance: GHS {{ author_balance(Auth::user()->id) }}</h5>
+                </li>
+                    
+            </ol>
             <li class="dropdown profile">
                 <a href="#" class="dropdown-toggle text-right" data-toggle="dropdown" role="button"
                    aria-expanded="false"><img src="{{ $user_avatar }}" class="profile-img"> <span
@@ -76,6 +85,7 @@
                     @endif
                 </ul>
             </li>
+            
         </ul>
     </div>
 </nav>

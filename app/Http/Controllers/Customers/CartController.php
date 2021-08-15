@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\ShippingDetail;
 use Auth;
 use App\Models\Order;
+use App\Models\Balance;
+use \App\Models\User;
+
 
 class CartController extends Controller
 {
@@ -59,30 +62,59 @@ class CartController extends Controller
 
     public function checkout(Request $request){
         if(session()->has('booksCart')){
+
+            //validating shipping details
             $this->validate($request, [
                 'name' => 'required',
                 'phone_number' => 'required',
                 'location' => 'required'
                 
             ]);
-            //dd($request->except(['_token']) + ['user_id' => Auth::user()->id]);
+
+            //saving shipping details
             $shipping_details = ShippingDetail::create($request->except(['_token']) + ['user_id' => Auth::user()->id]);
-            //dd($shipping_details);
-            $latest_invoice = Order::orderBy('created_at', 'desc')->first();
+            
+            //getting last invoice id
+            $latest_invoice = Order::orderBy('id', 'desc')->first();
             foreach (session()->get('booksCart') as $cart_book) {
                 $book = Book::find($cart_book['book_id']);
+
+                //converting price to GHS
+                $price = $book['selling_price'] * $book->multi_currency->rate;
+
+                //adding order to table
                 Order::create([
-                    'invoice_number' => $latest_invoice->invoice_number + 1,
+                    'invoice_number' => $latest_invoice ? $latest_invoice->invoice_number + 1 : 1,
                     'book_id' => $book->id,
                     'book_name' => $book['name'],
-                    'book_price' => $book['selling_price'],
+                    'book_price' => $price,
                     'book_quantity' => $cart_book['quantity'],
                     'shipping_details_id' => $shipping_details->id,
                     'user_id' => Auth::user()->id,
-                    'author_id' => $book['user_id'],
-                    'currency' => $book['currency']
+                    'author_id' => $book['user_id']
                 ]);
+
+
+                
+
+                //depositing amount into author's account 
+
+                //getting author details
+                $author = User::find($book['user_id']);
+                $deposit_amount = ($author->author_percentage / 100.00) * ($price * $cart_book['quantity']);
+               
+                Balance::create([
+                    'user_id' => $author->id,
+                    'transaction_type' => 'deposit',
+                    'amount' => $deposit_amount,
+                    'balance_left' => author_balance($author->id) + $deposit_amount
+                ]);
+                
             }
+
+            
+
+            //emptying cart
             session()->forget('booksCart');
             return redirect()->route('website-home')->with('success', 'Order successful');
         }
