@@ -41,7 +41,7 @@
 
             <input required type="email" id="login" class="fadeIn second" name="email" value="{{old('email')}}"
                    placeholder="Email">
-            <input required type="number" id="login" class="fadeIn second" name="phone" value="{{old('phone')}}"
+            <input required type="number" id="login" class="fadeIn second" name="phone_number" value="{{old('phone')}}"
                    placeholder="Phone">
             <input required type="password" id="password" class="fadeIn third" name="password" value="{{old('password')}}"
                    placeholder="Password">

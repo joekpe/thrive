@@ -62,7 +62,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4">
-                    <a class="logo" title="Magento Commerce" href="#">
+                    <a class="logo" title="Magento Commerce" href="/">
                         <img src="{{asset('website/images/ui/logo@2x.png')}}" alt="" style="width: 7em">
                     </a>
                 </div> <!-- logo -->

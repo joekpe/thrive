@@ -34,7 +34,7 @@
                 $role = \App\Models\Role::find(Auth::user()->role_id);
             @endphp
 
-            @if ($role->name == 'admin' )
+            @if ($role->name == 'admin' || $role->name == 'manager' )
                 <admin-menu :items="{{ menu('admin', '_json') }}"></admin-menu>
             @elseif ($role->name == 'author' )
             <ul class="nav navbar-nav">

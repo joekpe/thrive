@@ -107,7 +107,8 @@ class CartController extends Controller
                     'user_id' => $author->id,
                     'transaction_type' => 'deposit',
                     'amount' => $deposit_amount,
-                    'balance_left' => author_balance($author->id) + $deposit_amount
+                    'balance_left' => author_balance($author->id) + $deposit_amount,
+                    'sweep_status' => 'n/a'
                 ]);
                 
             }

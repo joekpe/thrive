@@ -7,12 +7,19 @@ use App\Models\Book;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
     public function home(){
         $authors = User::query()->where('role_id', '=', '3')->where('status', '=', 'approved')->limit(6)->get();
-        $books = Book::query()->limit(12)->get();
+        
+        $books = DB::table('users')
+        ->join('books', 'users.id', '=', 'books.user_id')
+        ->where('users.status', 'approved')
+        ->limit(12)
+        ->get();
+
         $FirstDay = date("Y-m-d", strtotime('sunday last week'));
         $LastDay = date("Y-m-d", strtotime('sunday this week'));
         $newArrivals = [];

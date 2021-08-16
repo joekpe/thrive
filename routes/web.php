@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BalanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,17 @@ use App\Http\Controllers\BookController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/test', function(){
+    //$books = Book::where
+    //$authors = User::where('status', 'approved');
+    $books = DB::table('users')
+    ->join('books', 'users.id', '=', 'books.user_id')
+    ->where('users.status', 'approved')
+            ->get();
+
+    dd($books);
+});
 
 Route::group(['prefix' => '/'], function (){
     Route::any('', [App\Http\Controllers\Customers\HomeController::class, 'home'])->name('website-home');
@@ -28,9 +40,12 @@ Route::group(['prefix' => '/'], function (){
     Route::get('clear_cart', [App\Http\Controllers\Customers\CartController::class, 'clear_cart']);
     Route::get('delete_cart_item/{id}', [App\Http\Controllers\Customers\CartController::class, 'delete_cart_item']);
     Route::get('cart', [App\Http\Controllers\Customers\CartController::class, 'cart'])->name('cart');
-    Route::get('/shipping_details', function(){
+    Route::get('shipping_details', function(){
         return view('customers.shipping_details');
     })->name('shipping_details');
+
+    //author thank you
+    Route::get('activate_account/{id}', [App\Http\Controllers\Customers\AuthorController::class, 'activate_account'])->name('activate_account');
 
 });
 
@@ -60,4 +75,12 @@ Route::group(['middleware' => 'auth'], function () {
         return view('customers.shipping_details')->with('shipping_details', $shipping_details);
     })->name('shipping_details');
     Route::post('/checkout', [App\Http\Controllers\Customers\CartController::class, 'checkout'])->name('checkout');
+
+
+    Route::group(['prefix' => 'admin'], function () {
+        //author withdrawal
+        Route::get('withdraw', [BalanceController::class, 'withdraw'])->name('withdraw_page');
+        Route::post('withdrawal', [BalanceController::class, 'withdrawal'])->name('withdrawal_request');
+    });
+    
 });

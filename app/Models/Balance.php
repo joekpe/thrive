@@ -13,6 +13,8 @@ class Balance extends Model
         'user_id',
         'transaction_type',
         'amount',
-        'balance_left'
+        'balance_left',
+        'sweep_status',
+        'sweep_number'
     ];
 }

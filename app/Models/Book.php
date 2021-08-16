@@ -36,4 +36,8 @@ class Book extends Model
     public function multi_currency(){
         return $this->belongsTo(MultiCurrency::class, 'currency');
     }
+
+    public function author(){
+        return $this->belongsTo(User::class);
+    }
 }
