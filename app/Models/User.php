@@ -23,6 +23,8 @@ class User extends \TCG\Voyager\Models\User
         'role_id',
         'author_percentage',
         'status',
+        'phone_number',
+        'avatar'
     ];
 
     /**

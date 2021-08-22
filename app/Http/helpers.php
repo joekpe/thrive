@@ -4,6 +4,7 @@ use App\Models\Book;
 use App\Models\Category;
 use App\Models\MultiCurrency;
 use App\Models\User;
+use App\Models\Balance;
 
 function totalBooks ($authorID){
     try{
@@ -55,4 +56,12 @@ function bookDetails($bookID){
     catch (\Exception $e) {
         file_put_contents(storage_path('logs/error.log'), date('Y m d, H:i:s') . ' | ERROR | ' . $e->getMessage() . PHP_EOL . PHP_EOL, FILE_APPEND);
     }
+}
+
+function author_balance($author_id){
+    $balance_details = Balance::where('user_id', $author_id)->orderBy('id', 'desc')->first();
+        
+    $balance_left = $balance_details ? $balance_details->balance_left : 0.00;
+
+    return $balance_left;
 }

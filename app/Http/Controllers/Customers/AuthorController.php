@@ -23,4 +23,16 @@ class AuthorController extends Controller
             'books' => $books
         ]);
     }
+
+    public function activate_account($id){
+        $author = User::find($id);
+
+        $author->status = 'approved';
+
+        if($author->save()){
+            return view('customers.author_thank_you');
+        }else{
+            return redirect()->route('/')->with('errorMessage', 'Failed to approve account');
+        }
+    }
 }

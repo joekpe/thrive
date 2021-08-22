@@ -7,18 +7,27 @@ use App\Models\Book;
 use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
     public function allBooks () {
-        $books = Book::query()->paginate(3);
+        $books = DB::table('users')
+        ->join('books', 'users.id', '=', 'books.user_id')
+        ->where('users.status', 'approved')
+        ->paginate(3);
+
         return view('customers.all_books', [
             'books' => $books
         ]);
     }
 
     public function newArrivals () {
-        $books = Book::query()->get();
+        $books = DB::table('users')
+        ->join('books', 'users.id', '=', 'books.user_id')
+        ->where('users.status', 'approved')
+        ->get();
+
         $FirstDay = date("Y-m-d", strtotime('sunday last week'));
         $LastDay = date("Y-m-d", strtotime('sunday this week'));
         $newArrivals = [];
@@ -44,14 +53,24 @@ class BookController extends Controller
     }
 
     public function categoryDetails ($id) {
-        $books = Book::query()->where('category', '=', $id)->get();
+        $books = DB::table('users')
+        ->join('books', 'users.id', '=', 'books.user_id')
+        ->where('users.status', 'approved')
+        ->where('books.category', '=', $id)
+        ->get();
+        
         return view('customers.category_specific_books',[
             'books' => $books
         ]);
     }
 
     public function bookDetails ($id) {
-        $book = Book::query()->where('id', '=',$id)->first();
+        $book = DB::table('users')
+        ->join('books', 'users.id', '=', 'books.user_id')
+        ->where('users.status', 'approved')
+        ->where('books.id', '=',$id)
+        ->first();
+
         $categories = Category::all();
         return view('customers.book_details',[
             'book' => $book,

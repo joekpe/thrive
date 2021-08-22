@@ -64,24 +64,30 @@
                                         </div>
                                     @endif
 
-                                        <div class="product-signle-options clearfix">
-                                            <div class="selector-wrapper size">
-                                                <label>Qty :</label>
-                                                <div class="quantity">
-                                                    <input data-step="1" value="1" title="Qty" class="qty" size="4"
-                                                           type="text">
+                                        <form method="POST" action="{{ route('website-book-cart') }}">
+                                            @csrf
+                                            <div class="product-signle-options clearfix">
+                                                <div class="selector-wrapper size">
+                                                    <label>Qty :</label>
+                                                    <div class="quantity">
+                                                        <input data-step="1" value="1" title="Qty" class="qty" size="4"
+                                                               type="text" name="quantity">
+                                                        <input type="hidden" name="price" value="{{ $book->selling_price }}">
+                                                        <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                                        <input type="hidden" name="author_id" value="{{ $book->user_id }}">
+                                                        <input type="hidden" name="book_name" value="{{ $book->name }}">
+                                                    </div>
+                                                    <div class="submit">
+                                                        @if($book->quantity == 0)
+    
+                                                        @else
+                                                                <input type="submit" class="sub"  value="ADD TO CART"/>
+                                                        @endif
+                                                    </div>
+    
                                                 </div>
-                                                <div class="submit">
-                                                    @if($book->quantity == 0)
-
-                                                    @else
-                                                            <input type="submit" class="sub" name="sub" value="ADD TO CART"/>
-                                                    @endif
-                                                </div>
-
-                                                <a href="{{route('website-book-cart', $book->id)}}">Add to cart</a>
                                             </div>
-                                        </div>
+                                        </form>
 
                                     <div class="sharing-box">
                                         <div class="social-sharing">

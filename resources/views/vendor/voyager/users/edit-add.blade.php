@@ -97,7 +97,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            @if(isset($dataTypeContent->id))
+                            @if(isset($dataTypeContent->id) && Auth::user()->role_id <= 2)
                             <div class="form-group">
                                 <label for="percentage">Author's Percentage</label>
                                 <input type="number" class="form-control" id="percentage" name="author_percentage" value="{{ old('author_percentage', $dataTypeContent->author_percentage ?? '') }}" max="100">
