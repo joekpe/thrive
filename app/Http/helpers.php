@@ -48,8 +48,9 @@ function currency ($currencyID){
 
 function bookDetails($bookID){
     try{
-        $book = Book::query()->where('id', '=', $bookID)->first();
-        return $book ;
+//        $book = Book::query()->where('id', '=', $bookID)->first();
+//        return $book ;
+        return $bookID;
     }
     catch (\Exception $e) {
         file_put_contents(storage_path('logs/error.log'), date('Y m d, H:i:s') . ' | ERROR | ' . $e->getMessage() . PHP_EOL . PHP_EOL, FILE_APPEND);

@@ -46,7 +46,8 @@
                     <a class="logo" title="Magento Commerce" href="#">
                         <img src="{{asset('website/images/ui/logo@2x.png')}}" alt="" style="width: 7em">
                     </a>
-                </div> <!-- logo -->
+                </div>
+                <!-- logo -->
                 <div class=" col-xs-12 col-sm-12 col-md-9 col-lg-8">
                     <nav>
                         <ul class="main-nav nav-tabs" id="main-menu">
@@ -70,7 +71,7 @@
                                 </p></a>
                         </div>
                         <ul class="menu-shop">
-                            @if(Session::get('booksCart'))
+                            @if( Session::get('booksCart')))
                                 @forelse(Session::get('booksCart') as $cartBook)
                                     <li class="list-menu-shop">
                                         <div class="shop-cart">
@@ -82,7 +83,7 @@
                                                 <a href=""><i class="fa fa-times-circle"></i></a>
                                             </div>
                                             <div class="list-names">
-                                                <a href="#">{{bookDetails($cartBook)->name}}</a>
+                                                <a href="#">{{ bookDetails($cartBook)->name}}</a>
                                             </div>
                                             <span class="price">
 												<span class="amount">{{currency(bookDetails($cartBook)->currency)->code}} {{bookDetails($cartBook)->selling_price}}</span>
