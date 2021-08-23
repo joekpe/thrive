@@ -32,4 +32,9 @@ class BalanceController extends Controller
         return redirect()->back();
         
     }
+
+    public function withdrawal_requests(){
+        $withdrawal_requests = Balance::where('sweep_status', 'pending')->paginate(5);
+        return view('vendor.voyager.balances.withdrawal_requests')->with('withdrawal_requests', $withdrawal_requests);
+    }
 }
