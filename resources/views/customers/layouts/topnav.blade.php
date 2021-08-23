@@ -30,12 +30,14 @@
 
                 <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
 
+                    @if(Auth()->user())
                     <div class="right-topbar">
                         <ul>
                             <li class="tabs-sort-1"><a href="#" style="color: #fff">{{Auth()->user()->name}}</a></li>
                         </ul>
 
                     </div>
+                        @endif
 
                 </div>
             </div>
