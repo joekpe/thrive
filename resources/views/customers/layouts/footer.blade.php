@@ -10,9 +10,9 @@
                             <label class="left" style="margin-right: 2em">
                                 BECOME AN AUTHOR TODAY ON THRIVE BOOKS
                             </label>
-                            <div class="col-input">
-                                <a href="/author_register" class="btn btn-primary">Sign Up</a>
-                            </div>
+{{--                            <div class="col-input">--}}
+{{--                                <a href="/author_register" class="btn btn-primary">Sign Up</a>--}}
+{{--                            </div>--}}
 
                         </form>
                     </div>

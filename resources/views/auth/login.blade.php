@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{asset('website/css/login.css')}}">
 </head>
 <body>
-<div class="wrapper fadeInDown" style="background-image: url({{asset('website/images/ui/backgroundLogin@2x.png')}}); background-size: cover">
+<div class="wrapper fadeInDown" style="background-image: url({{asset('website/images/ui/backnew@2x.png')}}); background-size: cover">
     <div id="formContent">
         <!-- Tabs Titles -->
 
@@ -28,15 +28,19 @@
             @csrf
             <input type="text" id="login" class="fadeIn second" name="email" value="{{old('email')}}" placeholder="Email">
             <input type="password" id="password" class="fadeIn third" name="password" value="{{old('password')}}"  placeholder="Password">
+            <br/>
+            <br/>
             <input type="submit" class="fadeIn fourth" value="Log In">
         </form>
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
             <a class="underlineHover" href="#">Forgot Password?</a><br>
-            <a class="underlineHover" href="{{route('author_register')}}">Become an Author</a><br>
-            <a class="underlineHover" href="{{route('register')}}">Become an Customer</a><br>
-            <a class="underlineHover" href="/">Back to Website</a>
+            <hr/>
+            <a class="underlineHover" href="{{route('author_register')}}">Become An Author</a><br>
+            <hr/>
+            <a class="underlineHover" href="{{route('register')}}">Become An Customer</a><br>
+{{--            <a class="underlineHover" href="/">Back to Website</a>--}}
         </div>
 
     </div>

@@ -14,7 +14,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                     <div class="left-topbar">
                         <p>
-                            <a style="color: #fff" href="{{ route('logout') }}"
+                            <a onclick="" style="color: #fff" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
@@ -22,24 +22,17 @@
                         </p>
                     </div>
                 </div>
-                
+
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
                 @endguest
-                
+
                 <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
 
                     <div class="right-topbar">
                         <ul>
-                            <li class="tabs-sort-1"><a href="#" style="color: #fff">My Account</a></li>
-                            <li class="tabs-sort-2">Currency :
-                                <select id="pgl-names-switch" class=" the-switch">
-                                    <option value="">USD</option>
-                                    <option value="">EUR</option>
-                                </select>
-                            </li>
-
+                            <li class="tabs-sort-1"><a href="#" style="color: #fff">{{Auth()->user()->name}}</a></li>
                         </ul>
 
                     </div>
@@ -90,7 +83,7 @@
                                 </p></a>
                         </div>
                         <ul class="menu-shop">
-                            
+
                                 {{-- @php
                                     $sub_total = 0;
                                 @endphp --}}
@@ -120,7 +113,7 @@
                                     @endphp --}}
                                 @empty
                                 @endforelse
-                            
+
 
                             <li class="shop-input">
                                 {{-- <div class="text-shop clearfix">

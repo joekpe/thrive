@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="wrapper fadeInDown"
-     style="background-image: url({{asset('website/images/ui/backgroundLogin@2x.png')}}); background-size: cover">
+     style="background-image: url({{asset('website/images/ui/backnew@2x.png')}}); background-size: cover">
     <form method="post" action="{{ route('register') }}">
         @csrf
         <div id="formContent">
@@ -25,6 +25,8 @@
 
             <p align="middle" style="font-size: 1em;font-family: 'Montserrat"> Join our growing community</p>
 
+            <hr/>
+
             <!-- Login Form -->
             @if(Session::has('successmessage'))
                 <p class="alert {{ Session::get('alert-class', 'alert-success') }}">{{ Session::get('successmessage') }}</p>
@@ -36,28 +38,48 @@
                 </div>
             @endif
             @csrf
+            <label for="avatar">Enter Full Name</label>
             <input required type="text" id="login" class="fadeIn second" name="name" value="{{old('name')}}"
                    placeholder="Name">
+            <br/>
+            <br/>
 
+            <label for="avatar">Enter Email</label>
             <input required type="email" id="login" class="fadeIn second" name="email" value="{{old('email')}}"
                    placeholder="Email">
+            <br/>
+            <br/>
+
+            <label for="avatar">Enter Phone Number</label>
             <input required type="number" id="login" class="fadeIn second" name="phone_number" value="{{old('phone')}}"
                    placeholder="Phone">
+            <br/>
+            <br/>
+
+            <label for="avatar">Enter Password</label>
             <input required type="password" id="password" class="fadeIn third" name="password" value="{{old('password')}}"
                    placeholder="Password">
+            <br/>
+            <br/>
 
+            <label for="avatar">Enter Password Confirmation</label>
             <input required type="password" id="password" class="fadeIn third" name="password_confirmation" value="{{old('password_confirmation')}}"
                    placeholder="Password Confirmation">
+            <br/>
+            <br/>
 
             <input type="hidden" name="role_id" value="4">
 
-            
-            <button type="submit" class="btn btn-primary">REGISTER</button>
+            <br/>
+
+            <input type="submit" class="fadeIn fourth" value="REGISTER">
 
             <!-- Remind Password -->
             <div id="formFooter">
                 <a class="underlineHover" href="{{route('author_register')}}">Become an Author</a><br>
+                <hr/>
                 <a class="underlineHover" href="{{route('login')}}">I have an account</a><br>
+                <hr/>
                 <a class="underlineHover" href="/">Back to Website</a>
             </div>
 
