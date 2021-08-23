@@ -15,16 +15,16 @@ use App\Http\Controllers\BalanceController;
 |
 */
 
-Route::get('/test', function(){
-    //$books = Book::where
-    //$authors = User::where('status', 'approved');
-    $books = DB::table('users')
-    ->join('books', 'users.id', '=', 'books.user_id')
-    ->where('users.status', 'approved')
-            ->get();
+// Route::get('/test', function(){
+//     //$books = Book::where
+//     //$authors = User::where('status', 'approved');
+//     $books = DB::table('users')
+//     ->join('books', 'users.id', '=', 'books.user_id')
+//     ->where('users.status', 'approved')
+//             ->get();
 
-    dd($books);
-});
+//     dd($books);
+// });
 
 Route::group(['prefix' => '/'], function (){
     Route::any('', [App\Http\Controllers\Customers\HomeController::class, 'home'])->name('website-home');
@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
         //author withdrawal
         Route::get('withdraw', [BalanceController::class, 'withdraw'])->name('withdraw_page');
         Route::post('withdrawal', [BalanceController::class, 'withdrawal'])->name('withdrawal_request');
+        Route::get('withdrawal_requests', [BalanceController::class, 'withdrawal_requests'])->name('withdrawal_requests');
     });
     
 });
