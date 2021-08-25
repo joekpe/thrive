@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     public function home(){
+        $sliders = \App\Models\Slider::all();
         $authors = User::query()->where('role_id', '=', '3')->where('status', '=', 'approved')->limit(6)->get();
         
         $books = DB::table('users')
@@ -31,7 +32,8 @@ class HomeController extends Controller
         return view('customers.home',[
             'authors' => $authors,
             'newArrivals' => $newArrivals,
-            'books' => $books
+            'books' => $books,
+            'sliders' => $sliders
         ]);
     }
 }

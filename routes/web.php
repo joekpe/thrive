@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BalanceController;
+use App\Http\Controllers\PaymentController;
+use App\Models\ShippingDetail;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         return view('customers.shipping_details')->with('shipping_details', $shipping_details);
     })->name('shipping_details');
-    Route::post('/checkout', [App\Http\Controllers\Customers\CartController::class, 'checkout'])->name('checkout');
+    Route::post('/save_shipping_details', [App\Http\Controllers\Customers\CartController::class, 'save_shipping_details'])->name('save_shipping_details');
 
 
     Route::group(['prefix' => 'admin'], function () {
@@ -84,4 +86,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('withdrawal_requests', [BalanceController::class, 'withdrawal_requests'])->name('withdrawal_requests');
     });
     
+    Route::get('/pay_now', function(){
+        $shipping_details = ShippingDetail::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->first();
+        return view('customers.pay_now')->with('shipping_details', $shipping_details);
+    })->name('pay_now');
+    //paystack
+    Route::post('/pay', [PaymentController::class, 'redirectToGateway'])->name('pay');
+    
+    Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
+
+
 });

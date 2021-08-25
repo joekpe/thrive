@@ -60,19 +60,25 @@ class CartController extends Controller
         return view('customers.cart');
     }
 
+    public function save_shipping_details(Request $request){
+        //validating shipping details
+        $this->validate($request, [
+            'name' => 'required',
+            'phone_number' => 'required',
+            'location' => 'required'
+            
+        ]);
+
+        //saving shipping details
+        $shipping_details = ShippingDetail::create($request->except(['_token']) + ['user_id' => Auth::user()->id]);
+        
+        return redirect()->route('pay_now');
+    }
+
     public function checkout(Request $request){
         if(session()->has('booksCart')){
 
-            //validating shipping details
-            $this->validate($request, [
-                'name' => 'required',
-                'phone_number' => 'required',
-                'location' => 'required'
-                
-            ]);
-
-            //saving shipping details
-            $shipping_details = ShippingDetail::create($request->except(['_token']) + ['user_id' => Auth::user()->id]);
+            
             
             //getting last invoice id
             $latest_invoice = Order::orderBy('id', 'desc')->first();

@@ -64,3 +64,7 @@ function author_balance($author_id){
 
     return $balance_left;
 }
+
+function books_sold($author_id){
+    return App\Models\Order::where('author_id', $author_id)->sum('book_quantity');
+}

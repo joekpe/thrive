@@ -33,15 +33,9 @@
                                             <li><i class="fa fa-star"></i></li>
                                         </ul>
                                     </div>
-                                    <p class="text-version">This is Photoshop's version of Lorem Ipsum. Proin gravida
-                                        nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor,
-                                        nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet
-                                        nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec
-                                        tellus a odio tincidunt auctor a ornare odio. Sed non mauris vitae erat
-                                        consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per
-                                        conubia nostra, per inceptos himenaeos. Mauris in erat justo. Nullam ac urna eu
-                                        felis dapibus.
-                                    </p>
+                                        {!! strlen($book->description) > 0 ? $book->description : 'No description' !!}
+                                    <hr>
+                                    <br>
                                     <span class="price">
 											<span
                                                 class="amount">{{currency($book->currency)->code}} {{$book->selling_price}}</span>
@@ -70,8 +64,7 @@
                                                 <div class="selector-wrapper size">
                                                     <label>Qty :</label>
                                                     <div class="quantity">
-                                                        <input data-step="1" value="1" title="Qty" class="qty" size="4"
-                                                               type="text" name="quantity">
+                                                        <input data-step="1" value="1" title="Qty" class="qty" size="4" type="number" name="quantity" min="1" max="{{ $book->quantity }}">
                                                         <input type="hidden" name="price" value="{{ $book->selling_price }}">
                                                         <input type="hidden" name="book_id" value="{{ $book->id }}">
                                                         <input type="hidden" name="author_id" value="{{ $book->user_id }}">
@@ -81,7 +74,7 @@
                                                         @if($book->quantity == 0)
     
                                                         @else
-                                                                <input type="submit" class="sub"  value="ADD TO CART"/>
+                                                                <button type="submit" class="sub"> ADD TO CART </button>
                                                         @endif
                                                     </div>
     
@@ -92,9 +85,11 @@
                                     <div class="sharing-box">
                                         <div class="social-sharing">
                                             <ul>
-                                                <li><a href="#"><i class="fa fa-heart"> </i>Add to wishlist</a></li>
-                                                <li><a href="#"><i class="fa fa-refresh"></i>Add to compare </a></li>
-                                                <li><a href="#"><i class="fa fa-envelope"></i>Emailafriend</a></li>
+                                                <li><a href="whatsapp://send?text={{$_SERVER['HTTP_HOST']}}{{ $_SERVER['REQUEST_URI'] }}"><i class="fa fa-heart"> </i>Share on WhatsApp</a></li>
+                                                {{-- <li><a href="#"><i class="fa fa-refresh"></i>Add to compare </a></li> --}}
+                                                <li>
+                                                    <a href="mailto:?subject=I wanted you to see this book&amp;body=Check out this site {{$_SERVER['HTTP_HOST']}}{{ $_SERVER['REQUEST_URI'] }}"><i class="fa fa-envelope"></i>Email a friend</a>
+                                                </li>
                                             </ul>
 
                                         </div>
