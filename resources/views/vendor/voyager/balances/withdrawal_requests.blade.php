@@ -16,6 +16,9 @@
         <div class="col-md-12">
             <div class="panel panel-bordered">
                 <div class="panel-body">
+                    @if (count($withdrawal_requests) > 0)
+                        
+                    
                     <table class="table table-hover">
                         <thead>
                             <th>
@@ -50,12 +53,21 @@
                                         {{ $withdrawal_request->created_at }}
                                     </td>
                                     <td>
-                                        
+                                        <a onclick="approve_withdrawal({{$withdrawal_request->id}})" class="btn btn-success">
+                                            Approve
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    @else
+
+                        <div class="alert alert-success" align="center">
+                            Hooray!!! You have no pending withdrawal requests
+                        </div>
+
+                    @endif
 
                     <div>
                         {!! $withdrawal_requests->links() !!}
@@ -67,3 +79,12 @@
 </div>
 
 @stop
+
+<script type="text/javascript">
+    function approve_withdrawal(id){
+        if(confirm("Do you want to approve transaction?")){
+            location.href = '/admin/approve_withdrawal/'+id;
+            //console.log('/admin/approve_withdrawal/'+id);
+        }
+    }
+</script>

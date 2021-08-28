@@ -37,4 +37,16 @@ class BalanceController extends Controller
         $withdrawal_requests = Balance::where('sweep_status', 'pending')->paginate(5);
         return view('vendor.voyager.balances.withdrawal_requests')->with('withdrawal_requests', $withdrawal_requests);
     }
+
+    public function approve_withdrawal($id){
+
+        $withdrawal_request = Balance::findOrFail($id);
+        $withdrawal_request->sweep_status = 'approved';
+
+        if( $withdrawal_request->save() ){
+            return redirect()->back()->with([ 'message'=>'Request Approved', 'alert-type'=>'success']);
+        }else{
+            return redirect()->back()->with([ 'message'=>'Request Approval Failed', 'alert-type'=>'error']);
+        }
+    }
 }

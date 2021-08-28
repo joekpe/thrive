@@ -105,7 +105,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($dataTypeContent->byAuthor(Auth::user()->id) as $data)
+                                    @php
+                                        $role = \App\Models\Role::find(Auth::user()->role_id);
+                                        $books = $dataTypeContent;
+                                        if($role->name == 'author'){
+                                            $books = $dataTypeContent->byAuthor(Auth::user()->id);
+                                        }
+                                        elseif($role->name == 'site_owner' || $role->name == 'admin'){
+                                            $books = $dataTypeContent;
+                                        }
+                                    @endphp
+                                    @foreach( $books as $data)
                                     <tr>
                                         @if($showCheckboxColumn)
                                             <td>

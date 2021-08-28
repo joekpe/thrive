@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('withdraw', [BalanceController::class, 'withdraw'])->name('withdraw_page');
         Route::post('withdrawal', [BalanceController::class, 'withdrawal'])->name('withdrawal_request');
         Route::get('withdrawal_requests', [BalanceController::class, 'withdrawal_requests'])->name('withdrawal_requests');
+        Route::get('approve_withdrawal/{id}', [BalanceController::class, 'approve_withdrawal'])->name('approve_withdrawal');
     });
     
     Route::get('/pay_now', function(){
