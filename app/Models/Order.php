@@ -19,7 +19,8 @@ class Order extends Model
         'shipping_details_id',
         'user_id',
         'author_id',
-        'currency'
+        'currency',
+        'paystack_reference'
 ];
 
     public function customer(){

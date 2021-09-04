@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         TCG\Voyager\VoyagerServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
 
     ],
 

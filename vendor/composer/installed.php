@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '3a78e6862bb5cfaefe24f7bcdd64288a9d08a332',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -576,12 +576,12 @@
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '3a78e6862bb5cfaefe24f7bcdd64288a9d08a332',
     ),
     'laravel/sail' => 
     array (
@@ -1449,6 +1449,15 @@
       array (
       ),
       'reference' => 'b43b05cf43c1b6d849478965062b6ef73e223bb5',
+    ),
+    'unicodeveloper/laravel-paystack' => 
+    array (
+      'pretty_version' => '1.0.7',
+      'version' => '1.0.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'bfcb92255c29d92b0c4e80355a65de14e2e156f3',
     ),
     'vlucas/phpdotenv' => 
     array (

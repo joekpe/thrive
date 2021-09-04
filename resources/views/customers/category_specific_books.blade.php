@@ -29,13 +29,33 @@
                         </h4>
                         <hr/>
                         <div class="cart-text product-cart">
-                            <p><a href="#">ADD TO CART</a></p>
-                            <div class="whishlist">
+                            <p>
+                                @if($book->quantity == 0)
+
+                                @else
+                                <a href="javascript:{}" onclick="document.getElementById('{{ $book->id }}').submit();">ADD TO CART</a>
+                                @endif
+                                
+                                
+                            </p>
+                            {{-- <div class="whishlist">
                                 <a href="#"><i class="fa fa-heart-o"></i></a>
-                            </div>
+                            </div> --}}
                             <div class="refresh">
-                                <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                <a href="/cart"><i class="fa fa-shopping-cart"></i></a>
                             </div>
+                            <form id="{{ $book->id }}" method="POST" action="{{ route('website-book-cart') }}">
+                                @csrf
+                                
+                                <input data-step="1" value="1" type="hidden" name="quantity">
+                                <input type="hidden" name="price" value="{{ $book->selling_price }}">
+                                <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                <input type="hidden" name="author_id" value="{{ $book->user_id }}">
+                                <input type="hidden" name="book_name" value="{{ $book->name }}">
+                            
+                                
+                                        
+                            </form>
                         </div>
                     </div>
                 </div>

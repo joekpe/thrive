@@ -9,7 +9,7 @@
 </section>
  <div class="container">
      <br>
-    <form action="/checkout" method="post">
+    <form action="{{ route('save_shipping_details') }}" method="post">
         @csrf
         <div class="row">
             <div class="col">
@@ -47,7 +47,7 @@
                 <input required value="{{ $shipping_details->location }}" type="text" class="form-control" id="location" placeholder="Enter your location" name="location">
             </div>
         </div>
-        <button type="submit" class="btn btn-success">CHECKOUT</button>
+        <button type="submit" class="btn btn-success">SAVE SHIPPING DETAILS AND PROCEED TO PAY</button>
     </form>
  </div>
 @endsection
