@@ -29,12 +29,13 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
     <style>
         .styled-table {
-            border-collapse: collapse;
-            margin: 25px 0;
+            /*border-collapse: collapse;*/
+            /*margin: 25px 0;*/
             font-size: 1.1em;
             font-family: 'Montserrat';
-            min-width: 400px;
+            /*min-width: 400px;*/
             width: 100%;
+            overflow-y: scroll;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         }
         .styled-table thead tr {
