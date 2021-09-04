@@ -16,8 +16,8 @@
         <div class="alert alert-warning text-center" role="alert">
             All prices have been converted to Ghana Cedis(GHS)
         </div>
-        <table class="styled-table">
-            <thead>
+        <table class="styled-table" style="width:100%;">
+            <thead  style="margin-bottom: 1em">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Book Name</th>
