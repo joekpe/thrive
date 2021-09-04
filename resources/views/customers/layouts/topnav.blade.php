@@ -33,13 +33,18 @@
 
                     <div class="right-topbar">
                         <ul>
-                            <li class="tabs-sort-1"><a href="#" style="color: #fff">My Account</a></li>
-                            <li class="tabs-sort-2">Currency :
+                            @guest
+                                <li class="tabs-sort-1"><a href="/login" style="color: #fff">My Account</a></li>
+                            @else
+                            <li class="tabs-sort-1"><a href="#" style="color: #fff">{{ Auth::user()->name }}</a></li>
+                            @endguest
+                            
+                            {{-- <li class="tabs-sort-2">Currency :
                                 <select id="pgl-names-switch" class=" the-switch">
                                     <option value="">USD</option>
                                     <option value="">EUR</option>
                                 </select>
-                            </li>
+                            </li> --}}
 
                         </ul>
 
@@ -76,7 +81,7 @@
                             <li><a href="#" title="">OUR SHOP</a>
                                 <ul>
                                     <li><a href="{{route('website-allBooks')}}">ALL BOOKS</a></li>
-                                    <li><a href="{{route('website-bestSelling')}}">BEST SELLING</a></li>
+                                    {{-- <li><a href="{{route('website-bestSelling')}}">BEST SELLING</a></li> --}}
                                     <li><a href="{{route('website-allCategories')}}"> ALL CATEGORIES</a></li>
                                 </ul>
                             </li>
@@ -99,7 +104,10 @@
                                     <li class="list-menu-shop">
                                         <div class="shop-cart">
                                             <div class="image-shop">
-                                                <img src="{{asset('website/images/ui/book01.jpg')}}" alt=""
+                                                @php
+                                                    $book = \App\Models\Book::find($cartBook['book_id']);
+                                                @endphp
+                                                <img src="{{ asset('storage/'.$book->image) }}" alt=""
                                                      style="width: 3em">
                                             </div>
                                             <div class="next-shop">
