@@ -49,9 +49,8 @@ function currency ($currencyID){
 
 function bookDetails($bookID){
     try{
-//        $book = Book::query()->where('id', '=', $bookID)->first();
-//        return $book ;
-        return $bookID;
+        $book = Book::query()->where('id', '=', $bookID)->first();
+        return $book;
     }
     catch (\Exception $e) {
         file_put_contents(storage_path('logs/error.log'), date('Y m d, H:i:s') . ' | ERROR | ' . $e->getMessage() . PHP_EOL . PHP_EOL, FILE_APPEND);
@@ -60,7 +59,7 @@ function bookDetails($bookID){
 
 function author_balance($author_id){
     $balance_details = Balance::where('user_id', $author_id)->orderBy('id', 'desc')->first();
-        
+
     $balance_left = $balance_details ? $balance_details->balance_left : 0.00;
 
     return $balance_left;
@@ -68,7 +67,7 @@ function author_balance($author_id){
 
 function author_revenue($author_id){
     $revenue = Balance::where('user_id', $author_id)->where('transaction_type', 'deposit')->sum('amount');
-        
+
     return $revenue;
 }
 
