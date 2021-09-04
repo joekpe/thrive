@@ -27,6 +27,52 @@
     <link href="{{asset('website/js/owl.theme.css')}}" rel="stylesheet">
     <!-- Le fav and touch icons -->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1.1em;
+            font-family: 'Montserrat';
+            min-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .styled-table thead tr {
+            background-color: #1B5E20;
+            color: #ffffff;
+            text-align: left;
+        }
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #1B5E20;
+        }
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #1B5E20;
+        }
+
+    /*    Inputs*/
+        input[type=text],input[type=date],input[type=email]{
+            padding-top:2em;
+            padding-bottom:2em;
+            border:0;
+            box-shadow:0 0 15px 4px rgba(0,0,0,0.06);
+            margin-bottom: 2em;
+            margin-top: 2em;
+            font-family: 'Montserrat';
+        }
+    </style>
     @stack('styles')
 </head>
 <body>

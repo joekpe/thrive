@@ -16,9 +16,8 @@
                                 <div class="image" style="height: 30em">
                                     <img src="{{asset('storage')}}/{{$newArrival->image}}" alt="">
                                     <span class="price">
-													<span
-                                                        class="amount">{{currency($newArrival->currency)->code}} {{$newArrival->selling_price}}</span>
-												</span>
+										<span class="amount">{{currency($newArrival->currency)->code}} {{$newArrival->selling_price}}</span>
+                                    </span>
                                 </div>
                             </div>
                         </a>
@@ -41,7 +40,7 @@
             @empty
                 <div class="col-lg-12">
                     <div class="alert alert-primary" role="alert">
-                        Oops! There are no books in our system at this time.
+                        <p  align="middle">Oops! There are no books in our system at this time.</p>
                     </div>
                 </div>
             @endforelse

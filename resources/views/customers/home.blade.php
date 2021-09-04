@@ -88,7 +88,7 @@
                                 @empty
                                     <div class="col-lg-12">
                                         <div class="alert alert-primary" role="alert">
-                                            Oops! There are no authors in our system at this time.
+                                            <p  align="middle">Oops! There are no authors in our system at this time.</p>
                                         </div>
                                     </div>
                                 @endforelse
@@ -173,7 +173,7 @@
                     @empty
                         <div class="col-lg-12">
                             <div class="alert alert-primary" role="alert">
-                                Oops! There are no books in our system at this time.
+                                <p  align="middle"> Oops! There are no books in our system at this time.</p>
                             </div>
                         </div>
                     @endforelse
@@ -254,7 +254,7 @@
                     @empty
                         <div class="col-lg-12">
                             <div class="alert alert-primary" role="alert">
-                                Oops! There are no books in our system at this time.
+                                <p  align="middle"> Oops! There are no books in our system at this time.</p>
                             </div>
                         </div>
                     @endforelse

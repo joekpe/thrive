@@ -16,7 +16,7 @@
         <div class="alert alert-warning text-center" role="alert">
             All prices have been converted to Ghana Cedis(GHS)
         </div>
-        <table class="table table-striped">
+        <table class="styled-table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -29,7 +29,7 @@
             <tbody>
                 @foreach (session()->get('booksCart') as $book)
                 @php
-                    
+
                     $rate = App\Models\Book::find($book['book_id'])->multi_currency->rate;
                     $sub_total = $sub_total + (($book['quantity'] * $book['price']) * $rate);
                 @endphp
@@ -45,7 +45,7 @@
         </table>
         <h2>
             Sub Total: GHS {{ $sub_total }}
-            <a href="/shipping_details" class="btn btn-primary pull-right">PROCEED</a>
+            <a href="/shipping_details" class="btn btn-primary pull-right" style="padding: 1em">PROCEED</a>
         </h2>
     @else
     <div class="alert alert-warning text-center" role="alert">

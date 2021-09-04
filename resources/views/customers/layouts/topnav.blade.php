@@ -14,7 +14,7 @@
                 <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                     <div class="left-topbar">
                         <p>
-                            <a style="color: #fff; text-decoration: none" href="/my_orders">My Orders</a> | 
+                            <a style="color: #fff; text-decoration: none" href="/my_orders">My Orders</a> |
                             <a style="color: #fff; text-decoration: none" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
@@ -23,12 +23,12 @@
                         </p>
                     </div>
                 </div>
-                
+
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
                 @endguest
-                
+
                 <div class="col-xs-12 col-sm-6 col-md-7 col-lg-7">
 
                     <div class="right-topbar">
@@ -51,7 +51,7 @@
     </div>
     @if(Session::has('success'))
         <div class="alert alert-success" role="alert">
-            <p align="middle">{{ Session::get('success') }}</p>
+            <p align="middle" align="middle">{{ Session::get('success') }}</p>
         </div>
     @endif
     @if(Session::has('errorMessage'))
@@ -91,7 +91,7 @@
                                 </p></a>
                         </div>
                         <ul class="menu-shop">
-                            
+
                                 {{-- @php
                                     $sub_total = 0;
                                 @endphp --}}
@@ -121,7 +121,7 @@
                                     @endphp --}}
                                 @empty
                                 @endforelse
-                            
+
 
                             <li class="shop-input">
                                 {{-- <div class="text-shop clearfix">
