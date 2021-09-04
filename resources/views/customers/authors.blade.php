@@ -25,7 +25,7 @@
                                                 <h2 class="name"><a href="#"
                                                                     style="color: #212121">{{$author->name}}</a></h2>
                                                 <div class="date">Total Books : {{totalBooks($author->id)}}</div>
-                                                <div class="like">Sold : 256</div>
+                                                <div class="like">Sold : {{ books_sold($author->id) }}</div>
                                             </div>
                                             <div class="des">
                                                 <a href="{{route('website-authors-books', $author->id)}}"

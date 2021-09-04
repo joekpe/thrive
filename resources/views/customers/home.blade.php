@@ -11,11 +11,13 @@
                             <img src="{{ asset('storage/'.$slider->image) }}" alt="" data-bgrepeat="no-repeat"
                                 data-bgfit="cover" data-bgposition="center center" style="">
                         </li>
-                            
+
                         @empty
-                        <div class="alert alert-primary" role="alert">
-                            Upload images to display slider.
-                        </div>
+                            <li class="f_left" data-transition="cube" data-slotamount="7"
+                                data-custom-thumb="{{ asset('website/images/ui/banner@2x.png') }}">
+                                <img src="{{ asset('website/images/ui/banner@2x.png') }}" alt="" data-bgrepeat="no-repeat"
+                                     data-bgfit="cover" data-bgposition="center center" style="">
+                            </li>
                         @endforelse
                     </ul>
                 </div>
@@ -144,8 +146,8 @@
                                         @else
                                         <a href="javascript:{}" onclick="document.getElementById('{{ $newArrival->id }}').submit();">ADD TO CART</a>
                                         @endif
-                                        
-                                        
+
+
                                     </p>
                                     {{-- <div class="whishlist">
                                         <a href="#"><i class="fa fa-heart-o"></i></a>
@@ -155,15 +157,15 @@
                                     </div>
                                     <form id="{{ $newArrival->id }}" method="POST" action="{{ route('website-book-cart') }}">
                                         @csrf
-                                        
+
                                         <input data-step="1" value="1" type="hidden" name="quantity">
                                         <input type="hidden" name="price" value="{{ $newArrival->selling_price }}">
                                         <input type="hidden" name="book_id" value="{{ $newArrival->id }}">
                                         <input type="hidden" name="author_id" value="{{ $newArrival->user_id }}">
                                         <input type="hidden" name="book_name" value="{{ $newArrival->name }}">
-                                    
-                                        
-                                                
+
+
+
                                     </form>
                                 </div>
                             </div>
@@ -225,8 +227,8 @@
                                         @else
                                         <a href="javascript:{}" onclick="document.getElementById('{{ $book->id }}').submit();">ADD TO CART</a>
                                         @endif
-                                        
-                                        
+
+
                                     </p>
                                     {{-- <div class="whishlist">
                                         <a href="#"><i class="fa fa-heart-o"></i></a>
@@ -236,15 +238,15 @@
                                     </div>
                                     <form id="{{ $book->id }}" method="POST" action="{{ route('website-book-cart') }}">
                                         @csrf
-                                        
+
                                         <input data-step="1" value="1" type="hidden" name="quantity">
                                         <input type="hidden" name="price" value="{{ $book->selling_price }}">
                                         <input type="hidden" name="book_id" value="{{ $book->id }}">
                                         <input type="hidden" name="author_id" value="{{ $book->user_id }}">
                                         <input type="hidden" name="book_name" value="{{ $book->name }}">
-                                    
-                                        
-                                                
+
+
+
                                     </form>
                                 </div>
                             </div>

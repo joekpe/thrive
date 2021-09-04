@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Balance;
 use Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Withdrawal;
 
 class BalanceController extends Controller
 {
@@ -28,8 +30,21 @@ class BalanceController extends Controller
             'sweep_number' => $request->sweep_number
         ]);
 
+        if($withdrawal){
+            $details = [
+                'name' => Auth::user()->name,
+                'email' => Auth::user()->email,
+                'amount' => 'GHS '.$withdrawal->amount,
+                'phone_number' => $withdrawal->sweep_number,
+            ];
+            Mail::to(env('SITE_OWNER_EMAIL'))->send(new Withdrawal($details));
+            return redirect()->back()->with([ 'message'=>'Request Sent', 'alert-type'=>'success']);
+        }else{
+
+        }
+
        
-        return redirect()->back();
+        
         
     }
 
