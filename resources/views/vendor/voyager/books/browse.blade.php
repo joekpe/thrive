@@ -111,7 +111,7 @@
                                         if($role->name == 'author'){
                                             $books = $dataTypeContent->byAuthor(Auth::user()->id);
                                         }
-                                        elseif($role->name == 'site_owner' || $role->name == 'admin'){
+                                        elseif($role->name == 'manager' || $role->name == 'admin'){
                                             $books = $dataTypeContent;
                                         }
                                     @endphp
