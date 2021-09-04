@@ -1,7 +1,5 @@
 @extends('voyager::master')
-@php
-    $orders = \App\Models\Order::where('author_id', Auth::user()->id)->groupBy('invoice_number')->get();
-@endphp
+
 @section('page_title', __('voyager::generic.viewing').' '.$dataType->getTranslatedAttribute('display_name_plural'))
 
 @section('page_header')
@@ -106,12 +104,20 @@
                                         <th class="actions text-right dt-not-orderable">{{ __('voyager::generic.actions') }}</th>
                                     </tr>
                                 </thead>
+                                @php
+                                    if(Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'site_owner'){
+                                        $orders = \App\Models\Order::where('author_id', '!=',  null)->groupBy('invoice_number')->get();
+                                    }else{
+                                        $orders = \App\Models\Order::where('author_id', Auth::user()->id)->groupBy('invoice_number')->get();
+                                    }
+                                    
+                                @endphp
                                 <tbody>
                                     @foreach($orders as $data)
                                     <tr>
                                         @if($showCheckboxColumn)
                                             <td>
-                                                <input type="checkbox" name="row_id" id="checkbox_{{ $data->getKey() }}" value="{{ $data->getKey() }}">
+                                               <input type="checkbox" name="row_id" id="checkbox_{{ $data->getKey() }}" value="{{ $data->getKey() }}">
                                             </td>
                                         @endif
                                         @foreach($dataType->browseRows as $row)

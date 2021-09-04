@@ -14,7 +14,8 @@
                 <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
                     <div class="left-topbar">
                         <p>
-                            <a style="color: #fff" href="{{ route('logout') }}"
+                            <a style="color: #fff; text-decoration: none" href="/my_orders">My Orders</a> | 
+                            <a style="color: #fff; text-decoration: none" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}

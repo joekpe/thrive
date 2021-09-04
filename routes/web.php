@@ -96,5 +96,14 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::get('/payment/callback', [PaymentController::class, 'handleGatewayCallback']);
 
+    //get customer orders
+    Route::get('/my_orders', function(){
+        $my_orders = \App\Models\Order::where('user_id', Auth::user()->id)->groupBy('invoice_number')->get();
+        return view('customers.my_orders')->with('my_orders', $my_orders);
+    })->name('my_orders');
 
+    //get order invoice
+    Route::get('/invoice/{id}', function($id){
+        return view('customers.my_invoice')->with('my_order_id', $id);
+    })->name('my_invoice');
 });
