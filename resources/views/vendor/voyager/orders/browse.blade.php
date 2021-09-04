@@ -105,7 +105,7 @@
                                     </tr>
                                 </thead>
                                 @php
-                                    if(Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'site_owner'){
+                                    if(Auth::user()->role->name === 'admin' || Auth::user()->role->name === 'manager'){
                                         $orders = \App\Models\Order::where('author_id', '!=',  null)->groupBy('invoice_number')->get();
                                     }else{
                                         $orders = \App\Models\Order::where('author_id', Auth::user()->id)->groupBy('invoice_number')->get();
