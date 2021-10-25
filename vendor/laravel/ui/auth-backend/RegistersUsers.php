@@ -6,7 +6,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Role;
 
 trait RegistersUsers
 {
@@ -19,8 +18,7 @@ trait RegistersUsers
      */
     public function showRegistrationForm()
     {
-        $roles = Role::where('name', '!=', 'admin')->where('name', '!=', 'manager')->get();
-        return view('auth.register')->with('roles', $roles);
+        return view('auth.register');
     }
 
     /**

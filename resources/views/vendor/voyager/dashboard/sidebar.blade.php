@@ -65,6 +65,41 @@
                         <span class="title">Finances</span>
                     </a> <!---->
                 </li>
+                <li class="dropdown">
+                    <a target="_self" href="#5-dropdown-element" data-toggle="collapse" aria-expanded="false">
+                        <span class="icon voyager-documentation"></span> <span class="title">Reports</span>
+                    </a> 
+                    <div id="5-dropdown-element" class="panel-collapse collapse ">
+                        <div class="panel-body">
+                            <ul class="nav navbar-nav">
+                                <li class="">
+                                    <a target="_self" href="{{ route('book_sales_report') }}">
+                                        <span class="icon voyager-book"></span> 
+                                        <span class="title">Book Sales Report</span>
+                                    </a> <!---->
+                                </li>
+                                <li class="">
+                                    <a target="_self" href="{{ route('finance_report') }}">
+                                        <span class="icon voyager-wallet"></span> 
+                                        <span class="title">Finance Report</span>
+                                    </a> <!---->
+                                </li>
+                                <li class="">
+                                    <a target="_self" href="{{ route('inventory_report') }}">
+                                        <span class="icon voyager-list"></span> 
+                                        <span class="title">Book Inventory Report</span>
+                                    </a> <!---->
+                                </li>
+                                <li class="">
+                                    <a target="_self" href="{{ route('customer_report') }}">
+                                        <span class="icon voyager-people"></span> 
+                                        <span class="title">Customer Report</span>
+                                    </a> <!---->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
             </ul>
             @endif
         </div>
