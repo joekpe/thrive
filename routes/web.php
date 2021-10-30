@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportController;
 use App\Models\ShippingDetail;
 
 /*
@@ -54,6 +55,16 @@ Route::group(['prefix' => '/'], function (){
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    Route::get('book_sales_report', [ReportController::class, 'book_sales'])->name('book_sales_report');
+    Route::post('book_sales_report', [ReportController::class, 'book_sales_specified'])->name('book_sales_specified');
+
+    Route::get('finance_report', [ReportController::class, 'finance'])->name('finance_report');
+    Route::post('finance_report', [ReportController::class, 'finance_specified'])->name('finance_specified');
+
+    Route::get('inventory_report', [ReportController::class, 'inventory'])->name('inventory_report');
+    Route::post('inventory_report', [ReportController::class, 'inventory_specified'])->name('inventory_specified');
+
+    Route::get('customer_report', [ReportController::class, 'customer'])->name('customer_report');
 });
 
 Auth::routes();
