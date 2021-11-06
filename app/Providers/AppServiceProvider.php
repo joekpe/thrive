@@ -30,5 +30,12 @@ class AppServiceProvider extends ServiceProvider
                 return $value->user_id == $author;
             });
         });
+
+        //filter books by author
+        Collection::macro('my_author_bio', function ($author) {
+            return $this->filter(function ($value) use ($author) {
+                return $value->user_id == $author;
+            });
+        });
     }
 }

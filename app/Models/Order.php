@@ -20,7 +20,8 @@ class Order extends Model
         'user_id',
         'author_id',
         'currency',
-        'paystack_reference'
+        'paystack_reference',
+        'book_details'
 ];
 
     public function customer(){

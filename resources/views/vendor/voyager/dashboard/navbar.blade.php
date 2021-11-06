@@ -41,7 +41,7 @@
             <ol class="breadcrumb hidden-xs">
             
                 <li class="active">
-                    <h5>Balance: GHS {{ author_balance(Auth::user()->id) }}</h5>
+                    <h5>Balance: GHS {{ number_format(author_balance(Auth::user()->id), 2) }}</h5>
                 </li>
                     
             </ol>

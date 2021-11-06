@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Auth;
 use App\Models\User;
 use App\Models\MultiCurrency;
+use App\Models\Review;
 
 class Book extends Model
 {
@@ -40,5 +41,9 @@ class Book extends Model
 
     public function author(){
         return $this->belongsTo(User::class);
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class);
     }
 }

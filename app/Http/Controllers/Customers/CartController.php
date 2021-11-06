@@ -10,6 +10,7 @@ use Auth;
 use App\Models\Order;
 use App\Models\Balance;
 use \App\Models\User;
+use \App\Models\Location;
 
 
 class CartController extends Controller
@@ -65,14 +66,17 @@ class CartController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'phone_number' => 'required',
-            'location' => 'required'
+            'location_id' => 'required'
             
         ]);
 
+        $location = Location::find($request->location_id);
+        //dd($location);
+
         //saving shipping details
-        $shipping_details = ShippingDetail::create($request->except(['_token']) + ['user_id' => Auth::user()->id]);
+        $shipping_details = ShippingDetail::create($request->except(['_token']) + ['user_id' => Auth::user()->id] + ['delivery_fee' => $location->delivery_fee]);
         
-        return redirect()->route('pay_now');
+        return redirect()->route('pay_now')->with('shipping_details', $shipping_details);
     }
 
     public function checkout(Request $request){
@@ -97,7 +101,8 @@ class CartController extends Controller
                     'book_quantity' => $cart_book['quantity'],
                     'shipping_details_id' => $shipping_details->id,
                     'user_id' => Auth::user()->id,
-                    'author_id' => $book['user_id']
+                    'author_id' => $book['user_id'],
+                    'book_details' => $book
                 ]);
 
 
