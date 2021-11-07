@@ -18,7 +18,15 @@
                                 <div class="image" style="height: 30em">
                                     <img src="{{asset('storage')}}/{{$book->image}}" alt="">
                                     <span class="price">
-										<span class="amount">{{currency($book->currency)->code}} {{$book->selling_price}}</span>
+										<span class="amount">{{currency($book->currency)->code}}
+                                            @if ($book->discount_type == 'none')
+                                                {{ number_format((float)$book->selling_price, 2, '.', '') }}
+                                            @elseif ($book->discount_type == 'amount')
+                                                {{ number_format((float)$book->selling_price - (float)$book->discount_figure, 2, '.', '') }} <span style="text-decoration: line-through;">{{ number_format((float)$book->selling_price, 2, '.', '') }}</span></h3>
+                                            @elseif ($book->discount_type == 'percentage')
+                                                {{ number_format((float)$book->selling_price - (float)($book->selling_price * ($book->discount_figure / 100)), 2, '.', '') }} <span style="text-decoration: line-through;">{{ number_format((float)$book->selling_price, 2, '.', '') }}</span></h3>
+                                            @endif
+                                        </span>
                                     </span>
                                 </div>
                             </div>
@@ -48,7 +56,13 @@
                                 @csrf
                                 
                                 <input data-step="1" value="1" type="hidden" name="quantity">
-                                <input type="hidden" name="price" value="{{ $book->selling_price }}">
+                                @if ($book->discount_type == 'none')
+                                    <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price, 2, '.', '') }}">
+                                @elseif ($book->discount_type == 'amount')
+                                    <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price - (float)$book->discount_figure, 2, '.', '') }}">
+                                @elseif ($book->discount_type == 'percentage')
+                                    <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price - (float)($book->selling_price * ($book->discount_figure / 100)), 2, '.', '') }}">
+                                @endif
                                 <input type="hidden" name="book_id" value="{{ $book->id }}">
                                 <input type="hidden" name="author_id" value="{{ $book->user_id }}">
                                 <input type="hidden" name="book_name" value="{{ $book->name }}">

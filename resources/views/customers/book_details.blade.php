@@ -1,4 +1,5 @@
 @extends('customers.layouts.master')
+
 @section('content')
     <section class="content-grid" style="margin-top: 1em">
         <div class="images-banner"
@@ -37,8 +38,15 @@
                                     <hr>
                                     <br>
                                     <span class="price">
-											<span
-                                                class="amount">{{currency($book->currency)->code}} {{$book->selling_price}}</span>
+											<span class="amount">{{currency($book->currency)->code}}
+                                                @if ($book->discount_type == 'none')
+                                                    {{ number_format((float)$book->selling_price, 2, '.', '') }}
+                                                @elseif ($book->discount_type == 'amount')
+                                                    {{ number_format((float)$book->selling_price - (float)$book->discount_figure, 2, '.', '') }} <span style="text-decoration: line-through;">{{ number_format((float)$book->selling_price, 2, '.', '') }}</span></h3>
+                                                @elseif ($book->discount_type == 'percentage')
+                                                    {{ number_format((float)$book->selling_price - (float)($book->selling_price * ($book->discount_figure / 100)), 2, '.', '') }} <span style="text-decoration: line-through;">{{ number_format((float)$book->selling_price, 2, '.', '') }}</span></h3>
+                                                @endif
+                                            </span>
 										</span>
                                     <br/>
                                     <br/>
@@ -65,7 +73,14 @@
                                                     <label>Qty :</label>
                                                     <div class="quantity">
                                                         <input data-step="1" value="1" title="Qty" class="qty" size="4" type="number" name="quantity" min="1" max="{{ $book->quantity }}">
-                                                        <input type="hidden" name="price" value="{{ $book->selling_price }}">
+                                                        @if ($book->discount_type == 'none')
+                                                            <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price, 2, '.', '') }}">
+                                                        @elseif ($book->discount_type == 'amount')
+                                                            <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price - (float)$book->discount_figure, 2, '.', '') }}">
+                                                        @elseif ($book->discount_type == 'percentage')
+                                                            <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price - (float)($book->selling_price * ($book->discount_figure / 100)), 2, '.', '') }}">
+                                                        @endif
+                                                        
                                                         <input type="hidden" name="book_id" value="{{ $book->id }}">
                                                         <input type="hidden" name="author_id" value="{{ $book->user_id }}">
                                                         <input type="hidden" name="book_name" value="{{ $book->name }}">
@@ -104,296 +119,154 @@
                         </div>
                     </div>
 
-
-                    <div class="product-item" style="margin-top: 10em">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="box-title">
-                                    <h3>UPSELL PRODUCTS</h3>
-                                </div>
-                                <div class="title-icon">
-                                    <img src="{{asset('website/images/media/banner/title-icon.jpg')}}" alt="">
-                                </div>
-                            </div>
+                    <div class="container">
+                        @php
+                            $reviews = \App\Models\Review::where('book_id', $book->id)->get();
+                        @endphp
+                        <div class="col-md-4">
+                            <h3>Average Rating: {{ number_format((float)$reviews->avg('rating'), 1, '.', '') }}</h3>
+                            <ul>
+                                <li>
+                                <span>5 stars - {{ count($reviews->where('rating', 5)) }}</span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </li>
+                                <li>
+                                <span>4 stars - {{ count($reviews->where('rating', 4)) }}</span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </li>
+                                <li>
+                                <span>3 stars - {{ count($reviews->where('rating', 3)) }}</span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </li>
+                                <li>
+                                <span>2 stars - {{ count($reviews->where('rating', 2)) }}</span>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </li>
+                                <li>
+                                <span>1 star - {{ count($reviews->where('rating', 1)) }}</span>
+                                    <i class="fa fa-star"></i>
+                                </li>
+                            </ul>
+                            @guest()
+                                <a href="{{ route('login_to_review', ['id' => $product->id]) }}" class="btn review-btn">
+                                    Login to Review
+                                </button>
+                            @else
+                                <button type="button" class="btn review-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Leave a Review
+                                </button>
+                            @endguest
                         </div>
-
-                    </div>
-                    <div class="product-img product-clear">
-                        <div id="demo2">
-                            <div id="owl-demo-post" class="owl-carousel">
-                                <div class="item ">
-                                    <div class="product-image">
-
-                                        <div class="image">
-                                            <img src="images/media/product/bn1.jpg" alt="">
-                                            <span class="price">
-													<span class="amount">$ 120.000</span>
-												</span>
-                                        </div>
-                                    </div>
-
-                                    <h4 class="names">
-                                        <a href="shopping_cart.html">Luxuri Casio G-shock Watches</a>
-                                    </h4>
-                                    <div class="icon-judge">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-o"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="cart-text">
-                                        <p><a href="shopping_cart.html">ADD TO CART</a></p>
-                                        <div class="whishlist">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                        </div>
-                                        <div class="refresh">
-                                            <a href="#"><i class="fa fa-refresh"></i></a>
-                                        </div>
+                        <div class="col-md-8">
+                            <h3 class="text-center">Latest Reviews</h3>
+                            @forelse ($reviews as $review)
+                                @php
+                                    $counter = 0;
+                                    $user = App\Models\User::find($review->user_id);
+                                @endphp
+                                <div class="single-review">
+                                    <img src="/storage/{{ $user->avatar }}" alt="#">
+                                    <div class="review-info">
+                                        <h4>Subject: {{ $review->subject }}
+                                            <span>Name:{{ $user->name }}</span>
+                                        </h4>
+                                        @while ( $counter < $review->rating)
+                                            <i class="fa fa-star"></i>
+                                            @php
+                                                $counter += 1;
+                                            @endphp
+                                        @endwhile
+                                        <p>Comment: {{ $review->comment }}</p>
                                     </div>
                                 </div>
-                                <div class="item ">
-                                    <div class="product-image">
-                                        <div class="image">
-                                            <img src="images/media/product/bn2.jpg" alt="">
-                                            <span class="price">
-													<span class="amount">$ 120.000</span>
-												</span>
-                                        </div>
-                                    </div>
-
-                                    <h4 class="names">
-                                        <a href="shopping_cart.html">Luxuri Casio G-shock Watches</a>
-                                    </h4>
-                                    <div class="icon-judge">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-o"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="cart-text">
-                                        <p><a href="shopping_cart.html">ADD TO CART</a></p>
-                                        <div class="whishlist">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                        </div>
-                                        <div class="refresh">
-                                            <a href="#"><i class="fa fa-refresh"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class="product-image">
-                                        <div class="image">
-                                            <img src="images/media/product/bn3.jpg" alt="">
-                                            <span class="price">
-													<span class="amount">$ 120.000</span>
-												</span>
-                                        </div>
-                                    </div>
-
-                                    <h4 class="names">
-                                        <a href="shopping_cart.html">Luxuri Casio G-shock Watches</a>
-                                    </h4>
-                                    <div class="icon-judge">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-o"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="cart-text">
-                                        <p><a href="shopping_cart.html">ADD TO CART</a></p>
-                                        <div class="whishlist">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                        </div>
-                                        <div class="refresh">
-                                            <a href="#"><i class="fa fa-refresh"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class="product-image">
-                                        <div class="image">
-                                            <img src="images/media/product/bn4.jpg" alt="">
-                                            <span class="price">
-													<span class="amount">$ 120.000</span>
-												</span>
-                                        </div>
-                                    </div>
-
-                                    <h4 class="names">
-                                        <a href="shopping_cart.html">Luxuri Casio G-shock Watches</a>
-                                    </h4>
-                                    <div class="icon-judge">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-o"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="cart-text">
-                                        <p><a href="shopping_cart.html">ADD TO CART</a></p>
-                                        <div class="whishlist">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                        </div>
-                                        <div class="refresh">
-                                            <a href="#"><i class="fa fa-refresh"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class="product-image">
-                                        <div class="image">
-                                            <img src="images/media/product/bn1.jpg" alt="">
-                                            <span class="price">
-													<span class="amount">$ 120.000</span>
-												</span>
-                                        </div>
-                                    </div>
-
-                                    <h4 class="names">
-                                        <a href="shopping_cart.html">Luxuri Casio G-shock Watches</a>
-                                    </h4>
-                                    <div class="icon-judge">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-o"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="cart-text">
-                                        <p><a href="shopping_cart.html">ADD TO CART</a></p>
-                                        <div class="whishlist">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                        </div>
-                                        <div class="refresh">
-                                            <a href="#"><i class="fa fa-refresh"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class="product-image">
-                                        <div class="image">
-                                            <img src="images/media/product/bn2.jpg" alt="">
-                                            <span class="price">
-													<span class="amount">$ 120.000</span>
-												</span>
-                                        </div>
-                                    </div>
-
-                                    <h4 class="names">
-                                        <a href="shopping_cart.html">Luxuri Casio G-shock Watches</a>
-                                    </h4>
-                                    <div class="icon-judge">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-o"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="cart-text">
-                                        <p><a href="shopping_cart.html">ADD TO CART</a></p>
-                                        <div class="whishlist">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                        </div>
-                                        <div class="refresh">
-                                            <a href="#"><i class="fa fa-refresh"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class="product-image">
-                                        <div class="image">
-                                            <img src="images/media/product/bn3.jpg" alt="">
-                                            <span class="price">
-													<span class="amount">$ 120.000</span>
-												</span>
-                                        </div>
-                                    </div>
-
-                                    <h4 class="names">
-                                        <a href="shopping_cart.html">Luxuri Casio G-shock Watches</a>
-                                    </h4>
-                                    <div class="icon-judge">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-o"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="cart-text">
-                                        <p><a href="shopping_cart.html">ADD TO CART</a></p>
-                                        <div class="whishlist">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                        </div>
-                                        <div class="refresh">
-                                            <a href="#"><i class="fa fa-refresh"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item ">
-                                    <div class="product-image">
-                                        <div class="image">
-                                            <img src="images/media/product/bn4.jpg" alt="">
-                                            <span class="price">
-													<span class="amount">$ 120.000</span>
-												</span>
-                                        </div>
-                                    </div>
-
-                                    <h4 class="names">
-                                        <a href="shopping_cart.html">Luxuri Casio G-shock Watches</a>
-                                    </h4>
-                                    <div class="icon-judge">
-                                        <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-o"></i></li>
-                                        </ul>
-                                    </div>
-                                    <div class="cart-text">
-                                        <p><a href="#">ADD TO CART</a></p>
-                                        <div class="whishlist">
-                                            <a href="#"><i class="fa fa-heart-o"></i></a>
-                                        </div>
-                                        <div class="refresh">
-                                            <a href="#"><i class="fa fa-refresh"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-xs-12  col-md-12 col-lg-3">
-                    <div class="main-content">
-                        <div class="content-group">
-                            <h3><span class="the-after">SEE OTHER CATEGORIES</span></h3>
-                            @forelse($categories as $category)
-                                <a href="{{route('website-categories-books', $category->id)}}" class="btn btn-default"
-                                   type="submit">{{$category->name}}</a>
                             @empty
-                                <p>Oops! There are no categories in the system at this time</p>
+                                <div class="alert alert-primary">There are no reviews for this product</div>
                             @endforelse
+                        </div>
+                    </div>
+
+                    {{-- review modal --}}
+                    <div class="modal fade review-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="{{ route('save_review') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+                                        @guest
+                                        @else
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="review-name">Your Name</label>
+                                                        <input class="form-control" type="text" id="review-name" required value="{{ Auth::user()->name }}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="review-email">Your Email</label>
+                                                        <input class="form-control" type="email" id="review-email" required value="{{ Auth::user()->email }}" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endguest
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="review-subject">Subject</label>
+                                                    <input class="form-control" type="text" id="review-subject" name="subject" required>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="review-rating">Rating</label>
+                                                    <select class="form-control" id="review-rating" name="rating">
+                                                        <option value="5">5 Stars</option>
+                                                        <option value="4">4 Stars</option>
+                                                        <option value="3">3 Stars</option>
+                                                        <option value="2">2 Stars</option>
+                                                        <option value="1">1 Star</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="review-message">Review</label>
+                                            <textarea class="form-control" id="review-message" rows="8" required name="comment"></textarea>
+                                        </div>
+                                        <input type="hidden" name="product_id" value="{{ $book->id }}">
+                                    </div>
+                                    <div class="modal-footer button">
+                                        <button type="submit" class="btn">Submit Review</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12  col-md-12 col-lg-12">
+                        <div class="main-content">
+                            <div class="content-group">
+                                <h3><span class="the-after">SEE OTHER CATEGORIES</span></h3>
+                                @forelse($categories as $category)
+                                    <a href="{{route('website-categories-books', $category->id)}}" class="btn btn-default"
+                                    type="submit">{{$category->name}}</a>
+                                @empty
+                                    <p>Oops! There are no categories in the system at this time</p>
+                                @endforelse
+                            </div>
                         </div>
                     </div>
                 </div>

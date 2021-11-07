@@ -6,6 +6,7 @@ use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 use App\Models\ShippingDetail;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,4 +118,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/invoice/{id}', function($id){
         return view('customers.my_invoice')->with('my_order_id', $id);
     })->name('my_invoice');
+
+    //review
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('save_review');
+
+    Route::get('/login_to_review/{id}', [App\Http\Controllers\Customers\BookController::class, 'bookDetails'])->name('login_to_review');
 });
+
+Route::resource('reviews', ReviewController::class)->except([
+    'store'
+]);

@@ -44,7 +44,11 @@
 
             <div class="col-lg-4">
                 <label for="location" class="form-label">Location</label>
-                <input required value="{{ $shipping_details->location }}" type="text" class="form-control" id="location" placeholder="Enter your location" name="location">
+                <select name="location_id" id="location" class="form-control"  style="height: 4em;margin-top: 2em;margin-bottom: 2em; box-shadow:0 0 15px 4px rgba(0,0,0,0.06);">
+                    @foreach (\App\Models\Location::all() as $location)
+                        <option value="{{ $location->id }}">{{ $location->name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <button type="submit" class="btn btn-success" style="padding: 1em">SAVE SHIPPING DETAILS AND PROCEED TO PAY</button>

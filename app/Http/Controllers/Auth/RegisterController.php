@@ -93,6 +93,10 @@ class RegisterController extends Controller
                 'status' => 'pending'
             ]);
 
+            $bio = \App\Models\AuthorBiography::create([
+                'user_id' => $user->id
+            ]);
+
             $details = [
                 'name' => $data['name'],
                 'email' => $data['email'],

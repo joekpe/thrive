@@ -44,8 +44,9 @@ class PaymentController extends Controller
                 $book = Book::find($cart_book['book_id']);
 
                 //converting price to GHS
-                $price = $book['selling_price'] * $book->multi_currency->rate;
-
+                $p = number_format((float)$cart_book['price'], 2, '.', '') * number_format((float)$book->multi_currency->rate, 2, '.', '');
+                $price = number_format($p, 2);
+                
                 //adding order to table
                 Order::create([
                     'invoice_number' => $paymentDetails['metadata']['order_id'],
@@ -66,13 +67,14 @@ class PaymentController extends Controller
 
                 //getting author details
                 $author = User::find($book['user_id']);
-                $deposit_amount = ($author->author_percentage / 100.00) * ($price * $cart_book['quantity']);
-            
+                $d_amount = ($author->author_percentage / 100.00) * ($price * $cart_book['quantity']);
+                $deposit_amount = number_format($d_amount, 2);
+                //dd($deposit_amount);
                 Balance::create([
                     'user_id' => $author->id,
                     'transaction_type' => 'deposit',
                     'amount' => $deposit_amount,
-                    'balance_left' => author_balance($author->id) + $deposit_amount,
+                    'balance_left' => number_format(author_balance($author->id) + $deposit_amount, 2),
                     'sweep_status' => 'n/a'
                 ]);
 

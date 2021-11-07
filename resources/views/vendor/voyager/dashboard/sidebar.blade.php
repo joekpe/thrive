@@ -65,6 +65,12 @@
                         <span class="title">Finances</span>
                     </a> <!---->
                 </li>
+                <li class="">
+                    <a target="_self" href="{{ route('voyager.author-biographies.index') }}">
+                        <span class="icon voyager-info-circled"></span> 
+                        <span class="title">My Bio</span>
+                    </a> <!---->
+                </li>
                 <li class="dropdown">
                     <a target="_self" href="#5-dropdown-element" data-toggle="collapse" aria-expanded="false">
                         <span class="icon voyager-documentation"></span> <span class="title">Reports</span>
@@ -90,6 +96,7 @@
                                         <span class="title">Book Inventory Report</span>
                                     </a> <!---->
                                 </li>
+                                
                                 <li class="">
                                     <a target="_self" href="{{ route('customer_report') }}">
                                         <span class="icon voyager-people"></span> 

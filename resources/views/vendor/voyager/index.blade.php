@@ -1,4 +1,5 @@
 @extends('voyager::master')
+
 <style type="text/css">
     .card-counter{
     box-shadow: 2px 2px 10px #DADADA;
@@ -88,7 +89,7 @@
                     <div class="col-md-4">
                     <div class="card-counter success">
                         <i class="icon voyager-dollar"></i>
-                        <span class="count-numbers">GHS {{ author_revenue(Auth::user()->id) }}</span>
+                        <span class="count-numbers">GHS {{ number_format(author_revenue(Auth::user()->id), 2)  }}</span>
                         <span class="count-name">Total Revenue</span>
                     </div>
                     </div>
@@ -117,7 +118,7 @@
                     <div class="col-md-4">
                     <div class="card-counter success">
                         <i class="icon voyager-dollar"></i>
-                        <span class="count-numbers">GHS {{ author_revenue(Auth::user()->id) }}</span>
+                        <span class="count-numbers">GHS {{ number_format(author_revenue(Auth::user()->id), 2) }}</span>
                         <span class="count-name">Total Revenue</span>
                     </div>
                     </div>
@@ -125,6 +126,105 @@
                 </div>
             </div>
         @endif
+
+        <div class="row">
+            @php
+                if(Auth::user()->role->name == 'author'){
+                    $books = \App\Models\Order::select(
+                    'book_name', 
+                    'author_id',
+                    'created_at',
+                    DB::raw("count(*) as order_count")
+                    )->groupBy('book_id')->where('author_id', Auth::user()->id)->orderBy('order_count', 'desc')->with('customer')->take(5)->get();
+                    //$authors[] ="";
+                }
+                else{
+                    $books = \App\Models\Order::select(
+                    'book_name', 
+                    'author_id',
+                    'created_at',
+                    DB::raw("count(*) as order_count")
+                    )->groupBy('book_id')->orderBy('order_count', 'desc')->with('customer')->take(5)->get();
+
+                    $authors = \App\Models\Order::select(
+                    'author_id',
+                    'created_at',
+                    DB::raw("count(*) as order_count")
+                    )->groupBy('author_id')->orderBy('order_count', 'desc')->with('author')->take(5)->get();
+                
+                }
+            @endphp
+            <div class="container">
+                <div id="best_selling_books" style="width: 900px; height: 500px;"></div>
+            
+                @if (Auth::user()->role->name == 'admin' || Auth::user()->role->name == 'manager')
+                    <div id="best_selling_authors" style="width: 900px; height: 500px;"></div>
+                @endif
+            </div>
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+        
+                function drawChart() {
+        
+                var data = google.visualization.arrayToDataTable([
+                    ['Book Name', 'Order Count'],
+        
+                        @php
+                            foreach($books as $product){
+                                echo "['".$product->book_name."', ".$product->order_count."],";
+                            }
+                            // foreach($products as $product) {
+                            //     echo "['".$product->name."', ".$product->sales.", ".$product->quantity."],";
+                            // }
+                        @endphp
+                ]);
+        
+                  var options = {
+                    title: 'Best Selling Books',
+                    is3D: false,
+                  };
+        
+                  var chart = new google.visualization.PieChart(document.getElementById('best_selling_books'));
+        
+                  chart.draw(data, options);
+                }
+              </script>
+
+              
+              <script type="text/javascript">
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+        
+                function drawChart() {
+        
+                var data = google.visualization.arrayToDataTable([
+                    ['Author Name', 'Order Count'],
+        
+                        @php
+                            if(isset($authors)){
+                                foreach($authors as $product){
+                                    echo "['".$product->author->name."', ".$product->order_count."],";
+                                }
+                            }
+                            // foreach($products as $product) {
+                            //     echo "['".$product->name."', ".$product->sales.", ".$product->quantity."],";
+                            // }
+                        @endphp
+                ]);
+        
+                  var options = {
+                    title: 'Best Selling Authors',
+                    is3D: false,
+                  };
+        
+                  var chart = new google.visualization.BarChart(document.getElementById('best_selling_authors'));
+        
+                  chart.draw(data, options);
+                }
+              </script>
+        </div>
         
     </div>
 @stop
