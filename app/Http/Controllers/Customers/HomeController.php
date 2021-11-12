@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function home(){
         $sliders = \App\Models\Slider::all();
         $authors = User::query()->where('role_id', '=', '3')->where('status', '=', 'approved')->limit(6)->get();
-        
+
         $books = DB::table('users')
         ->join('books', 'users.id', '=', 'books.user_id')
         ->where('users.status', 'approved')
