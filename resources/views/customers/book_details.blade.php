@@ -101,7 +101,6 @@
                                         <div class="social-sharing">
                                             <ul>
                                                 <li><a href="whatsapp://send?text={{$_SERVER['HTTP_HOST']}}{{ $_SERVER['REQUEST_URI'] }}"><i class="fa fa-heart"> </i>Share on WhatsApp</a></li>
-                                                {{-- <li><a href="#"><i class="fa fa-refresh"></i>Add to compare </a></li> --}}
                                                 <li>
                                                     <a href="mailto:?subject=I wanted you to see this book&amp;body=Check out this site {{$_SERVER['HTTP_HOST']}}{{ $_SERVER['REQUEST_URI'] }}"><i class="fa fa-envelope"></i>Email a friend</a>
                                                 </li>
