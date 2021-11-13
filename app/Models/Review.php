@@ -14,6 +14,6 @@ class Review extends Model
         'rating',
         'subject',
         'user_id',
-        'product_id'
+        'book_id'
     ];
 }

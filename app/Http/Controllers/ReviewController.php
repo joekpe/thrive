@@ -44,12 +44,12 @@ class ReviewController extends Controller
         ]);
 
         
-        //dd($request);
+        //dd($request->book_id);
         $review = Review::create([
             'subject' => $request->subject,
             'rating' => $request->rating,
             'comment' => $request->comment,
-            'book_id' => $request->product_id,
+            'book_id' => $request->book_id,
             'user_id' => Auth::user()->id
         ]);
 
