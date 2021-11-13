@@ -58,7 +58,7 @@ class BookController extends Controller
         ->where('users.status', 'approved')
         ->where('books.category', '=', $id)
         ->get();
-        
+
         return view('customers.category_specific_books',[
             'books' => $books
         ]);
@@ -72,9 +72,11 @@ class BookController extends Controller
         ->first();
 
         $categories = Category::all();
+        $books =  Book::query()->where('category' ,  '=', $book->category)->get();
         return view('customers.book_details',[
             'book' => $book,
-            'categories' => $categories
+            'categories' => $categories,
+            'related_books' => $books
         ]);
     }
 

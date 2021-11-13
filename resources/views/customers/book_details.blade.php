@@ -80,19 +80,19 @@
                                                         @elseif ($book->discount_type == 'percentage')
                                                             <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price - (float)($book->selling_price * ($book->discount_figure / 100)), 2, '.', '') }}">
                                                         @endif
-                                                        
+
                                                         <input type="hidden" name="book_id" value="{{ $book->id }}">
                                                         <input type="hidden" name="author_id" value="{{ $book->user_id }}">
                                                         <input type="hidden" name="book_name" value="{{ $book->name }}">
                                                     </div>
                                                     <div class="submit">
                                                         @if($book->quantity == 0)
-    
+
                                                         @else
                                                                 <button type="submit" class="sub"> ADD TO CART </button>
                                                         @endif
                                                     </div>
-    
+
                                                 </div>
                                             </div>
                                         </form>
@@ -110,9 +110,6 @@
                                         </div>
 
                                     </div>
-                                    <div class="image-icon">
-                                        <img src="images/assets/social.png" alt="">
-                                    </div>
 
                                 </div>
                             </div>
@@ -123,52 +120,73 @@
                         @php
                             $reviews = \App\Models\Review::where('book_id', $book->id)->get();
                         @endphp
-                        <div class="col-md-4">
-                            <h3>Average Rating: {{ number_format((float)$reviews->avg('rating'), 1, '.', '') }}</h3>
-                            <ul>
-                                <li>
-                                <span>5 stars - {{ count($reviews->where('rating', 5)) }}</span>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                <span>4 stars - {{ count($reviews->where('rating', 4)) }}</span>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                <span>3 stars - {{ count($reviews->where('rating', 3)) }}</span>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                <span>2 stars - {{ count($reviews->where('rating', 2)) }}</span>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </li>
-                                <li>
-                                <span>1 star - {{ count($reviews->where('rating', 1)) }}</span>
-                                    <i class="fa fa-star"></i>
-                                </li>
-                            </ul>
-                            @guest()
-                                <a href="{{ route('login_to_review', ['id' => $product->id]) }}" class="btn review-btn">
-                                    Login to Review
-                                </button>
-                            @else
-                                <button type="button" class="btn review-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Leave a Review
-                                </button>
-                            @endguest
+
+                        @guest
+                        @else
+                            <br/>
+                            <br/>
+                        <hr/>
+                            <br/>
+                        <div class="col-lg-4">
+                            <div class="card" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; padding: 1em">
+                                <div class="card-body">
+                                    <p style="font-size: 1.2em;font-weight: bold">Add A Review Comment</p>
+                                    <hr/>
+                                    <form action="{{ route('save_review') }}" method="POST">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col-lg-6" style="display: none">
+                                                <div class="form-group">
+                                                    <label for="review-name">Your Name</label>
+                                                    <input class="form-control" type="text" id="review-name" required value="{{ Auth::user()->name }}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6" style="display: none">
+                                                <div class="form-group">
+                                                    <label for="review-email">Your Email</label>
+                                                    <input class="form-control" type="email" id="review-email" required value="{{ Auth::user()->email }}" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="product_id" value="{{ $book->id }}">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="form-group">
+                                                    <label for="review-subject">Subject</label>
+                                                    <input class="form-control" type="text" id="review-subject" name="subject" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-12 mb-4">
+                                                <div class="form-group">
+                                                    <label for="review-rating" style="margin-bottom: 1em">Rating</label>
+                                                    <select class="form-control" id="review-rating" name="rating" style="padding: 2em">
+                                                        <option value="5">5 Stars</option>
+                                                        <option value="4">4 Stars</option>
+                                                        <option value="3">3 Stars</option>
+                                                        <option value="2">2 Stars</option>
+                                                        <option value="1">1 Star</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="review-message" style="margin-bottom: 1em">Review</label>
+                                            <textarea class="form-control" id="review-message" rows="8" required name="comment"></textarea>
+                                        </div>
+                                        <br/>
+                                        <button type="submit" class="btn col-12 btn-primary p-4">Submit Review</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <h3 class="text-center">Latest Reviews</h3>
+                        @endguest
+
+                        <div class="col-lg-8">
+                            <br/>
+                            <h3>Latest Reviews</h3>
+                            <br/>
                             @forelse ($reviews as $review)
                                 @php
                                     $counter = 0;
@@ -195,76 +213,75 @@
                         </div>
                     </div>
 
-                    {{-- review modal --}}
-                    <div class="modal fade review-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Leave a Review</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <form action="{{ route('save_review') }}" method="POST">
-                                    @csrf
-                                    <div class="modal-body">
-                                        @guest
-                                        @else
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="review-name">Your Name</label>
-                                                        <input class="form-control" type="text" id="review-name" required value="{{ Auth::user()->name }}" readonly>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="review-email">Your Email</label>
-                                                        <input class="form-control" type="email" id="review-email" required value="{{ Auth::user()->email }}" readonly>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endguest
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="review-subject">Subject</label>
-                                                    <input class="form-control" type="text" id="review-subject" name="subject" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label for="review-rating">Rating</label>
-                                                    <select class="form-control" id="review-rating" name="rating">
-                                                        <option value="5">5 Stars</option>
-                                                        <option value="4">4 Stars</option>
-                                                        <option value="3">3 Stars</option>
-                                                        <option value="2">2 Stars</option>
-                                                        <option value="1">1 Star</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="review-message">Review</label>
-                                            <textarea class="form-control" id="review-message" rows="8" required name="comment"></textarea>
-                                        </div>
-                                        <input type="hidden" name="product_id" value="{{ $book->id }}">
-                                    </div>
-                                    <div class="modal-footer button">
-                                        <button type="submit" class="btn">Submit Review</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-xs-12  col-md-12 col-lg-12">
                         <div class="main-content">
                             <div class="content-group">
-                                <h3><span class="the-after">SEE OTHER CATEGORIES</span></h3>
-                                @forelse($categories as $category)
-                                    <a href="{{route('website-categories-books', $category->id)}}" class="btn btn-default"
-                                    type="submit">{{$category->name}}</a>
+                                <h3><span class="the-after">SEE OTHER RELATED BOOKS</span></h3>
+                                <br/>
+                                @forelse($related_books as $books)
+                                    @if($books->category !== $book->category)
+                                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="margin-bottom: 2em">
+                                        <div class="item top-item">
+                                            <a href="{{route('website-book-details',$book->id)}}">
+                                                <div class="product-image">
+                                                    <div class="image">
+                                                        <img src="{{asset('storage')}}/{{$book->image}}" alt="">
+                                                        <span class="price">
+                                        <span class="amount">{{currency($book->currency)->code}}
+                                            @if ($book->discount_type == 'none')
+                                                {{ number_format((float)$book->selling_price, 2, '.', '') }}
+                                            @elseif ($book->discount_type == 'amount')
+                                                {{ number_format((float)$book->selling_price - (float)$book->discount_figure, 2, '.', '') }} <span style="text-decoration: line-through;">{{ number_format((float)$book->selling_price, 2, '.', '') }}</span></h3>
+                                            @elseif ($book->discount_type == 'percentage')
+                                                {{ number_format((float)$book->selling_price - (float)($book->selling_price * ($book->discount_figure / 100)), 2, '.', '') }} <span style="text-decoration: line-through;">{{ number_format((float)$book->selling_price, 2, '.', '') }}</span></h3>
+                                            @endif
+                                        </span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </a>
+
+                                            <h4 class="names">
+                                                <a href="{{route('website-book-details',$book->id)}}">{{$book->name}}</a>
+                                            </h4>
+                                            <hr/>
+                                            <div class="cart-text product-cart">
+                                                <p>
+                                                    @if($book->quantity == 0)
+
+                                                    @else
+                                                        <a href="javascript:{}" onclick="document.getElementById('{{ $book->id }}').submit();">ADD TO CART</a>
+                                                    @endif
+
+
+                                                </p>
+                                                <div class="refresh">
+                                                    <a href="/cart"><i class="fa fa-shopping-cart"></i></a>
+                                                </div>
+                                                <form id="{{ $book->id }}" method="POST" action="{{ route('website-book-cart') }}">
+                                                    @csrf
+
+                                                    <input data-step="1" value="1" type="hidden" name="quantity">
+                                                    @if ($book->discount_type == 'none')
+                                                        <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price, 2, '.', '') }}">
+                                                    @elseif ($book->discount_type == 'amount')
+                                                        <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price - (float)$book->discount_figure, 2, '.', '') }}">
+                                                    @elseif ($book->discount_type == 'percentage')
+                                                        <input type="hidden" name="price" value="{{ number_format((float)$book->selling_price - (float)($book->selling_price * ($book->discount_figure / 100)), 2, '.', '') }}">
+                                                    @endif
+                                                    <input type="hidden" name="book_id" value="{{ $book->id }}">
+                                                    <input type="hidden" name="author_id" value="{{ $book->user_id }}">
+                                                    <input type="hidden" name="book_name" value="{{ $book->name }}">
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @else
+                                        <p>Oops! There are no related books in the system</p>
+                                    @endif
                                 @empty
-                                    <p>Oops! There are no categories in the system at this time</p>
+                                    <p>Oops! There are no related books in the system</p>
                                 @endforelse
                             </div>
                         </div>

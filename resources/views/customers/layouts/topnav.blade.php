@@ -38,7 +38,7 @@
                             @else
                             <li class="tabs-sort-1"><a href="#" style="color: #fff">{{ Auth::user()->name }}</a></li>
                             @endguest
-                            
+
                             {{-- <li class="tabs-sort-2">Currency :
                                 <select id="pgl-names-switch" class=" the-switch">
                                     <option value="">USD</option>
@@ -85,7 +85,7 @@
                                     <li><a href="{{route('website-allCategories')}}"> ALL CATEGORIES</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#" title="">CONTACT</a></li>
+{{--                            <li><a href="#" title="">CONTACT</a></li>--}}
                         </ul>
                     </nav>
 
