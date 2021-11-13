@@ -104,6 +104,12 @@
                                                 <li>
                                                     <a href="mailto:?subject=I wanted you to see this book&amp;body=Check out this site {{$_SERVER['HTTP_HOST']}}{{ $_SERVER['REQUEST_URI'] }}"><i class="fa fa-envelope"></i>Email a friend</a>
                                                 </li>
+                                                @guest
+                                                    <li>
+                                                        <a href="{{route('login')}}"><i class="fa fa-comment-o"></i>Leave a message</a>
+                                                    </li>
+                                                @else
+                                                @endguest
                                             </ul>
 
                                         </div>
