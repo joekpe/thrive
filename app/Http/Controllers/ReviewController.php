@@ -40,7 +40,7 @@ class ReviewController extends Controller
             'subject' => 'required',
             'rating' => 'required|numeric',
             'comment' => 'required',
-            'product_id' => 'required'
+            'book_id' => 'required'
         ]);
 
         
@@ -49,7 +49,7 @@ class ReviewController extends Controller
             'subject' => $request->subject,
             'rating' => $request->rating,
             'comment' => $request->comment,
-            'product_id' => $request->product_id,
+            'book_id' => $request->product_id,
             'user_id' => Auth::user()->id
         ]);
 

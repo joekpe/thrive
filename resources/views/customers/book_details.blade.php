@@ -147,7 +147,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="product_id" value="{{ $book->id }}">
+                                        <input type="hidden" name="book_id" value="{{ $book->id }}">
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-group">
