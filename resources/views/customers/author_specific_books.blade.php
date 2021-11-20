@@ -40,7 +40,7 @@
                             <div class="item top-item">
                                 <a href="{{route('website-book-details',$book->id)}}">
                                     <div class="product-image">
-                                        <div class="image">
+                                        <div class="image" style="height: 30em">
                                             <img src="{{asset('storage')}}/{{$book->image}}" alt="" style="object-fit: contain">
                                             <span class="price">
                                         <span class="amount">{{currency($book->currency)->code}}
