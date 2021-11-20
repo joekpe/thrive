@@ -106,7 +106,7 @@
                                                 </li>
                                                 @guest
                                                     <li>
-                                                        <a href="{{route('login')}}"><i class="fa fa-comment-o"></i>Leave a message</a>
+                                                        <a href="{{route('login')}}"><i class="fa fa-comment-o"></i>Leave a review</a>
                                                     </li>
                                                 @else
                                                 @endguest
