@@ -75,7 +75,8 @@ class PaymentController extends Controller
                     'transaction_type' => 'deposit',
                     'amount' => $deposit_amount,
                     'balance_left' => number_format(author_balance($author->id) + $deposit_amount, 2),
-                    'sweep_status' => 'n/a'
+                    'sweep_status' => 'n/a',
+                    'author_percentage' => $author->author_percentage
                 ]);
 
                 $book->quantity = $book->quantity - $cart_book['quantity'];

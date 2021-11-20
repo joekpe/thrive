@@ -16,7 +16,8 @@ class Balance extends Model
         'amount',
         'balance_left',
         'sweep_status',
-        'sweep_number'
+        'sweep_number',
+        'author_percentage'
     ];
 
     public function author(){
