@@ -41,7 +41,7 @@
                                 <a href="{{route('website-book-details',$book->id)}}">
                                     <div class="product-image">
                                         <div class="image">
-                                            <img src="{{asset('storage')}}/{{$book->image}}" alt="">
+                                            <img src="{{asset('storage')}}/{{$book->image}}" alt="" style="object-fit: contain">
                                             <span class="price">
                                         <span class="amount">{{currency($book->currency)->code}}
                                             @if ($book->discount_type == 'none')
