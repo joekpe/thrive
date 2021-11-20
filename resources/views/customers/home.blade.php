@@ -230,6 +230,7 @@
                                                         {{ number_format((float)$book->selling_price - (float)($book->selling_price * ($book->discount_figure / 100)), 2, '.', '') }} <span style="text-decoration: line-through;">{{ number_format((float)$book->selling_price, 2, '.', '') }}</span></h3>
                                                     @endif
                                                 </span>
+                                            </span>
                                         </div>
                                     </div>
                                 </a>

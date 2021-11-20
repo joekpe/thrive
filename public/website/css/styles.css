@@ -6005,7 +6005,7 @@ footer .copyright ul li img {
     bottom: 0px;
     right: 0px;
     display: block;
-    width: 80px;
+    width: 100%;
     height: 30px;
     background: #5b5b5b;
 }
