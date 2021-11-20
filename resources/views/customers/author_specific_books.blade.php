@@ -18,21 +18,22 @@
                         <div class="blog-content">
                             <div class="extra">
                                 <hr/>
-                                <p style="font-size: 1.2em">Pastor Mesah Otabil</p>
+                                <p style="font-size: 1.2em">{{authorName(request()->route('id'))->name}}</p>
                                 <hr/>
-                                <p><i class="fa fa-facebook" style="margin-right: 1em"></i> @ {{authorBio(request()->route('id'))->facebook}}</p>
+                                <p><i class="fa fa-facebook" style="margin-right: 1em"></i> {{authorBio(request()->route('id'))->facebook}}</p>
                                 <hr/>
-                                <p><i class="fa fa-twitter" style="margin-right: 1em"></i> @ {{authorBio(request()->route('id'))->twitter}}</p>
+                                <p><i class="fa fa-twitter" style="margin-right: 1em"></i> {{authorBio(request()->route('id'))->twitter}}</p>
                                 <hr/>
-                                <p><i class="fa fa-instagram" style="margin-right: 1em"></i> @ {{authorBio(request()->route('id'))->instagram}}</p>
+                                <p><i class="fa fa-instagram" style="margin-right: 1em"></i> {{authorBio(request()->route('id'))->instagram}}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-                <div style="border-left:1px solid #F5F5F5;height:500px"></div>
-                <div class="col-lg-8" style="margin-bottom: 2em">
+{{--                <div style="border-left:1px solid #F5F5F5;height:500px"></div>--}}
+
+                <div class="col-lg-9" style="margin-bottom: 2em">
                     <div class="row">
                         @forelse($books as $book)
                         <div class="col-4">
