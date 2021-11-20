@@ -36,7 +36,7 @@
                 <div class="col-lg-9" style="margin-bottom: 2em">
                     <div class="row">
                         @forelse($books as $book)
-                        <div class="col-4">
+                        <div class="col-4" style="margin-bottom: 1em">
                             <div class="item top-item">
                                 <a href="{{route('website-book-details',$book->id)}}">
                                     <div class="product-image">
