@@ -21,7 +21,8 @@ class Order extends Model
         'author_id',
         'currency',
         'paystack_reference',
-        'book_details'
+        'book_details',
+        'order_status'
 ];
 
     public function customer(){

@@ -1,45 +1,52 @@
 @extends('voyager::master')
 
 @section('page_title', __('voyager::generic.view').' '.$dataType->getTranslatedAttribute('display_name_singular'))
-
+@php
+        $order = \App\Models\Order::findOrFail($dataTypeContent->id);
+        
+        $shipping_details = \App\Models\ShippingDetail::where('email', $order->customer->email)->get();
+        $shipping_details = $shipping_details[0];
+        
+        if(Auth::user()->role->name == 'author'){
+            $items = \App\Models\Order::where('invoice_number', $order->invoice_number)->where('author_id', Auth::user()->id)->get();
+            $total = \App\Models\Order::select(DB::raw('sum(book_quantity * book_price) as total'))->where('invoice_number', $order->invoice_number)->where('author_id', Auth::user()->id)->get();
+        }else{
+            $items = \App\Models\Order::where('invoice_number', $order->invoice_number)->get();
+            $total = \App\Models\Order::select(DB::raw('sum(book_quantity * book_price) as total'))->where('invoice_number', $order->invoice_number)->get();
+        }
+        
+        
+        
+@endphp
 @section('page_header')
     <h1 class="page-title">
         <i class="{{ $dataType->icon }}"></i> {{ __('voyager::generic.viewing') }} {{ ucfirst($dataType->getTranslatedAttribute('display_name_singular')) }} &nbsp;
 
-        @can('edit', $dataTypeContent)
-            <a href="{{ route('voyager.'.$dataType->slug.'.edit', $dataTypeContent->getKey()) }}" class="btn btn-info">
-                <i class="glyphicon glyphicon-pencil"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.edit') }}</span>
-            </a>
-        @endcan
-        @can('delete', $dataTypeContent)
-            @if($isSoftDeleted)
-                <a href="{{ route('voyager.'.$dataType->slug.'.restore', $dataTypeContent->getKey()) }}" title="{{ __('voyager::generic.restore') }}" class="btn btn-default restore" data-id="{{ $dataTypeContent->getKey() }}" id="restore-{{ $dataTypeContent->getKey() }}">
-                    <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.restore') }}</span>
-                </a>
-            @else
-                <a href="javascript:;" title="{{ __('voyager::generic.delete') }}" class="btn btn-danger delete" data-id="{{ $dataTypeContent->getKey() }}" id="delete-{{ $dataTypeContent->getKey() }}">
-                    <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.delete') }}</span>
+        @if(Auth::user()->role->name != 'author')
+            
+            @if ($order->order_status != 'pending')
+                <a href="/admin/order/status?id={{ $order->invoice_number }}&&order_status=pending" class="btn btn-warning">
+                    <span class="hidden-xs hidden-sm">Stall Order</span>
                 </a>
             @endif
-        @endcan
-        @can('browse', $dataTypeContent)
-        <a href="{{ route('voyager.'.$dataType->slug.'.index') }}" class="btn btn-warning">
-            <i class="glyphicon glyphicon-list"></i> <span class="hidden-xs hidden-sm">{{ __('voyager::generic.return_to_list') }}</span>
-        </a>
-        @endcan
+
+            @if ($order->order_status != 'cancelled')
+                <a href="/admin/order/status?id={{ $order->invoice_number }}&&order_status=cancelled" class="btn btn-danger">
+                    <span class="hidden-xs hidden-sm">Cancel Order</span>
+                </a>
+            @endif
+
+            @if ($order->order_status != 'delivered')
+                <a href="/admin/order/status?id={{ $order->invoice_number }}&&order_status=delivered" class="btn btn-success">
+                    <span class="hidden-xs hidden-sm">Mark as Delivered</span>
+                </a>
+            @endif
+
+        @endif
     </h1>
     @include('voyager::multilingual.language-selector')
 @stop
-@php
-    $order = \App\Models\Order::findOrFail($dataTypeContent->id);
-        
-        $shipping_details = \App\Models\ShippingDetail::where('email', $order->customer->email)->get();
-        $shipping_details = $shipping_details[0];
-        $items = \App\Models\Order::where('invoice_number', $order->invoice_number)->where('author_id', Auth::user()->id)->get();
-        
-        $total = \App\Models\Order::select(DB::raw('sum(book_quantity * book_price) as total'))->where('invoice_number', $order->invoice_number)->where('author_id', Auth::user()->id)->get();
-        $shipping_details->total = $total[0]['total'];
-@endphp
+
 
 @section('content')
     <div class="page-content read container-fluid">
@@ -104,7 +111,7 @@
                                </tbody>
                             </table>
                             <h4>
-                                Total: GHS {{ $shipping_details->total }}
+                                Total: GHS {{ $total[0]['total'] }}
                             </h4>
                             <br>
                         </div>

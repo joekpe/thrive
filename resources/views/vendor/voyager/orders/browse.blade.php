@@ -264,6 +264,7 @@
                                                     @include('voyager::bread.partials.actions', ['action' => $action])
                                                 @endif
                                             @endforeach
+                                            {{-- <a href="/admin/orders/{{ $data->invoice_number }}" class="btn btn-warning"><i class="voyager-eye"></i> View</a> --}}
                                         </td>
                                     </tr>
                                     @endforeach

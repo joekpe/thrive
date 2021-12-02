@@ -7,6 +7,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 use App\Models\ShippingDetail;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\OrderController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +68,19 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('inventory_report', [ReportController::class, 'inventory_specified'])->name('inventory_specified');
 
     Route::get('customer_report', [ReportController::class, 'customer'])->name('customer_report');
+
+    Route::get('order/status', function(Request $request){
+
+        $orders = App\Models\Order::where('invoice_number', $request->id)->get();
+        foreach ($orders as $order) {
+            $order->order_status = $request->order_status;
+            $order->save();
+        }
+        return back()->with([
+            'message'    => "Order status set to '".$request->order_status."'",
+            'alert-type' => 'success',
+        ]);
+    });
 });
 
 Auth::routes();
@@ -97,6 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('withdrawal', [BalanceController::class, 'withdrawal'])->name('withdrawal_request');
         Route::get('withdrawal_requests', [BalanceController::class, 'withdrawal_requests'])->name('withdrawal_requests');
         Route::get('approve_withdrawal/{id}', [BalanceController::class, 'approve_withdrawal'])->name('approve_withdrawal');
+        
     });
     
     Route::get('/pay_now', function(){
