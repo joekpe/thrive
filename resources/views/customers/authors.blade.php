@@ -11,7 +11,7 @@
         <div class="card">
 
             <section class="main-content">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="latest-blog">
                         <div class="box-content content-blog">
                                 <div class="row">
@@ -41,7 +41,6 @@
                                         </div>
                                     @endforelse
                                 </div>
-
                         </div>
                     </div>
                 </div>

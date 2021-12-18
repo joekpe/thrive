@@ -19,7 +19,13 @@
                                 <div class="content-img clearfix">
                                     <img id="zoom_01" src="{{asset('storage')}}/{{$book->image}}"
                                          data-zoom-image="{{asset('storage')}}/{{$book->image}}" alt=""/>
-
+                                    <br/>
+                                    <a href="{{route('website-authors-books', $book->user_id)}}"><i class="fa fa-user"></i> Written By {{authorName($book->user_id)->name}}</a>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
                                 </div>
                             </div>
                             <div class="col-md-7 col-lg-7">
@@ -117,9 +123,11 @@
                                     </div>
 
                                 </div>
+
                             </div>
                         </div>
                     </div>
+
 
                     <div class="container">
                         @php
