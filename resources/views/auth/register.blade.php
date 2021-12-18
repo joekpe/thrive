@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="wrapper fadeInDown"
-     style="background-image: url({{asset('website/images/ui/backnew@2x.png')}}); background-size: cover">
+     style="background-color:aliceblue; background-size: cover">
     <form method="post" action="{{ route('register') }}">
         @csrf
         <div id="formContent">

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{asset('website/css/login.css')}}">
 </head>
 <body>
-<div class="wrapper fadeInDown" style="background-image: url({{asset('website/images/ui/backnew@2x.png')}}); background-size: cover">
+<div class="wrapper fadeInDown" style="background-color:aliceblue; background-size: cover">
     <div id="formContent">
         <!-- Tabs Titles -->
 
