@@ -17,15 +17,18 @@
     <div class="images-banner"
          style="height: 10em;background-image: url({{asset('website/images/ui/banner003@2x.png')}});background-size: cover ">
         <p style="padding-top: 2em;font-size: 2em;color: #fff" align="middle">
-            <i class="fa fa-shopping-cart fa-lg"></i><font style="font-size: 1.2em; margin-left: 0.7em">Your cart total is: GHS {{ $total }} + Delivery: GHS {{ $shipping_details->delivery_fee }} = GHS {{ $grand_total }}</font>
+            <i class="fa fa-shopping-cart fa-lg"></i><font style="font-size: 1.2em; margin-left: 0.7em">Pay Now</font>
         </p>
     </div>
 </section>
+<br>
  <div class="container">
-     <br>
+
      <form method="POST" action="{{ route('pay') }}" accept-charset="UTF-8" class="form-horizontal" role="form">
         <div class="row" style="margin-bottom:40px;">
             <div class="col-md-8 col-md-offset-2">
+
+
 
                 <input type="hidden" name="first-name" value="{{ $shipping_details->name }}">
                 <input type="hidden" name="phone" value="{{ $shipping_details->phone_number }}">
@@ -40,12 +43,22 @@
 
                 @csrf
 
+                <div class="card" align="center">
+                    <div class="card-body">
+                        <h2 style="font-size: 2em;">Cart Total: GHS {{ $total }}</h2>
+                        <h2 style="font-size: 2em;">Delivery: GHS {{ $shipping_details->delivery_fee }}</h2>
+                        <h2 style="font-size: 2em;">Total: GHS {{ $total + $shipping_details->delivery_fee }}</h2>
+                        <p>
+                            <button class="btn btn-outline-success btn-lg btn-block" type="submit" value="Pay Now!" style="padding: 1em;margin-top: 2em;">
+                                <i class="fa fa-credit-card fa-2x"></i><br/><font style="font-size: 1.4em; margin-left: 0.7em">Click Here To Pay GHS {{ $grand_total }} Now</font>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+                 <br>
 
-                <p>
-                    <button class="btn btn-outline-success btn-lg btn-block" type="submit" value="Pay Now!" style="padding: 1em;margin-top: 2em;">
-                        <i class="fa fa-credit-card fa-2x"></i><br/><font style="font-size: 1.4em; margin-left: 0.7em">Click Here To Pay GHS {{ $grand_total }} Now</font>
-                    </button>
-                </p>
+
+
             </div>
         </div>
     </form>

@@ -5,7 +5,11 @@
         <div class="images-banner"
              style="height: 10em;background-image: url({{asset('website/images/ui/banner003@2x.png')}});background-size: cover ">
             <p style="padding-top: 2em;font-size: 2em;color: #fff"
-               align="middle">{{bookDetails(request()->route('id'))->name}}</p>
+               align="middle">{{bookDetails(request()->route('id'))->name}}
+            </p>
+            <p style="padding-top: 2em;font-size: 1em;color: #fff"
+               align="middle"><i class="fa fa-user"></i> {{authorName($book->user_id)->name}}
+            </p>
         </div>
     </section>
 
@@ -131,7 +135,7 @@
 
                     <div class="container">
                         @php
-                            $reviews = \App\Models\Review::where('book_id', $book->id)->get();
+                            $reviews = \App\Models\Review::where('book_id', $book->id)->paginate(6);
                         @endphp
 
                         @guest
@@ -200,12 +204,33 @@
                             <br/>
                             <h3>Latest Reviews</h3>
                             <br/>
+
                             @forelse ($reviews as $review)
                                 @php
                                     $counter = 0;
                                     $user = App\Models\User::find($review->user_id);
                                 @endphp
-                                <div class="single-review">
+                                <div class="media">
+                                    <div class="media-left">
+                                      <a href="#">
+                                        <img class="pull-left media-object" src="/storage/{{ $user->avatar }}" alt="{{ $user->name }}" width="30px" style="margin-right: 10px;">
+                                      </a>
+                                    </div>
+                                    <div class="media-body">
+                                      <h4 class="media-heading"> {{ $review->subject }}</h4>
+                                      <p>
+                                        @while ( $counter < $review->rating)
+                                        <i style="color: darkgoldenrod;" class="fa fa-star"></i>
+                                            @php
+                                                $counter += 1;
+                                            @endphp
+                                        @endwhile
+                                      </p>
+                                       {{ $review->comment }}
+                                    </div>
+                                </div>
+                                <hr>
+                                {{-- <div class="single-review">
                                     <img src="/storage/{{ $user->avatar }}" alt="#">
                                     <div class="review-info">
                                         <h4>Subject: {{ $review->subject }}
@@ -219,10 +244,11 @@
                                         @endwhile
                                         <p>Comment: {{ $review->comment }}</p>
                                     </div>
-                                </div>
+                                </div> --}}
                             @empty
                                 <div class="alert alert-primary">There are no reviews for this product</div>
                             @endforelse
+                            {!! $reviews->links() !!}
                         </div>
                     </div>
 

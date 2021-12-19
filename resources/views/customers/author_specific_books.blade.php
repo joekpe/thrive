@@ -14,17 +14,20 @@
             <div class="col-lg-3" style="margin-bottom: 4em">
                 <div class="card" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;border: 1px solid white; border-radius: 1em">
                     <div class="card-body">
-                            <img src="{{asset('storage/')}}/{{authorName(request()->route('id'))->avatar}}" alt="" style="width: 20em;height: 15em;">
+                            <img src="{{asset('storage/')}}/{{authorName(request()->route('id'))->avatar}}" alt="" style="width: 20em;height: 20em;">
                         <div class="blog-content">
                             <div class="extra">
                                 <hr/>
-                                <p style="font-size: 1.2em">{{authorName(request()->route('id'))->name}}</p>
+                                <p style="font-size: 1.2em"><i class="fa fa-user"></i> {{authorName(request()->route('id'))->name}}</p>
                                 <hr/>
-                                <p><i class="fa fa-facebook" style="margin-right: 1em"></i> {{authorBio(request()->route('id'))->facebook}}</p>
+                                <p style="font-size: 1.2em"><i class="fa fa-at"></i> Socials</p>
                                 <hr/>
-                                <p><i class="fa fa-twitter" style="margin-right: 1em"></i> {{authorBio(request()->route('id'))->twitter}}</p>
-                                <hr/>
-                                <p><i class="fa fa-instagram" style="margin-right: 1em"></i> {{authorBio(request()->route('id'))->instagram}}</p>
+                                <a target="_blank" href="{{authorBio(request()->route('id'))->facebook}}" class="btn btn-primary btn-block btn-lg"><i class="fa fa-facebook"></i> </a>
+                                <a style="background-color: blueviolet;" target="_blank" href="{{authorBio(request()->route('id'))->instagram}}" class="btn btn-primary btn-block btn-lg"><i class="fa fa-instagram"></i> </a>
+                                <a style="background-color: cornflowerblue" target="_blank" href="{{authorBio(request()->route('id'))->twitter}}" class="btn btn-primary btn-block btn-lg"><i class="fa fa-twitter"></i> </a>
+                                <a target="_blank" href="{{authorBio(request()->route('id'))->youtube}}" class="btn btn-danger btn-block btn-lg"><i class="fa fa-youtube"></i> </a>
+
+
                             </div>
                         </div>
                     </div>
