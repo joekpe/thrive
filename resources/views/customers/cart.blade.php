@@ -51,7 +51,7 @@
             $sub_total =0;
         @endphp
         <div class="hidden-lg">
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-body">
                     @foreach (session()->get('booksCart') as $book)
                     @php
@@ -62,7 +62,39 @@
                     <p style="font-size: 1.5em;">{{ $counter+=1 }}. {{ $book['book_name'] }} - {{ $book['quantity'] }} pcs. x GHS {{ $book['price'] * $rate }}</p><br>
                     @endforeach
                 </div>
-            </div>
+            </div> --}}
+            @forelse(Session::get('booksCart') as $cartBook)
+            <li class="list-menu-shop" style="list-style: none;">
+                <div class="shop-cart">
+                    <div class="image-shop">
+                        @php
+                            $book = \App\Models\Book::find($cartBook['book_id']);
+                        @endphp
+                        <img class="pull-left" src="{{ asset('storage/'.$book->image) }}" alt=""
+                             style="width: 5em; margin-right: 15px;">
+                    </div>
+                    <div class="next-shop pull-right">
+                        <a href="/delete_cart_item/{{ $cartBook['book_id'] }}"><i class="fa fa-times-circle"></i></a>
+                    </div>
+                    <div class="list-names" style="font-size: 2em; padding-bottom:5px;">
+                        <a href="#">{{ $cartBook['book_name'] }}</a>
+                    </div>
+                    <span class="price"  style="font-size: 1.6em; padding-bottom:10px;">
+                        <span class="amount">{{ App\Models\Book::find($cartBook['book_id'])->multi_currency->code}} {{ $cartBook['price'] }}</span>
+                    </span>
+                    <div class="list-qty"  style="font-size: 1.3em; padding-top:5px;">
+                        <p>QTY: {{ $cartBook['quantity'] }}</p>
+                    </div>
+                </div>
+            </li>
+            <br>
+            <br>
+            <hr>
+            @php
+                $sub_total = $sub_total + ($cartBook['price'] * $cartBook['quantity']);
+            @endphp
+        @empty
+        @endforelse
 
         </div>
         <h2>

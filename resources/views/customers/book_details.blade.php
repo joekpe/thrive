@@ -8,7 +8,7 @@
                align="middle">{{bookDetails(request()->route('id'))->name}}
             </p>
             <p style="padding-top: 2em;font-size: 1em;color: #fff"
-               align="middle"><i class="fa fa-user"></i> {{authorName($book->user_id)->name}}
+               align="middle"><i><a style="color:white;" href="{{route('website-authors-books', $book->user_id)}}"> By: {{authorName($book->user_id)->name}}</a></i>
             </p>
         </div>
     </section>
@@ -24,7 +24,7 @@
                                     <img id="zoom_01" src="{{asset('storage')}}/{{$book->image}}"
                                          data-zoom-image="{{asset('storage')}}/{{$book->image}}" alt=""/>
                                     <br/>
-                                    <a href="{{route('website-authors-books', $book->user_id)}}"><i class="fa fa-user"></i> Written By {{authorName($book->user_id)->name}}</a>
+                                    {{-- <a href="{{route('website-authors-books', $book->user_id)}}"><i class="fa fa-user"></i> Written By {{authorName($book->user_id)->name}}</a> --}}
 <br/>
 <br/>
 <br/>

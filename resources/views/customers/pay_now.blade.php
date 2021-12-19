@@ -45,12 +45,12 @@
 
                 <div class="card" align="center">
                     <div class="card-body">
-                        <h2 style="font-size: 2em;">Cart Total: GHS {{ $total }}</h2>
-                        <h2 style="font-size: 2em;">Delivery: GHS {{ $shipping_details->delivery_fee }}</h2>
+                        <h2 style="font-size: 1.5em;">Cart Total: GHS {{ $total }}</h2><hr>
+                        <h2 style="font-size: 1.5em;">Delivery: GHS {{ $shipping_details->delivery_fee }}</h2><hr>
                         <h2 style="font-size: 2em;">Total: GHS {{ $total + $shipping_details->delivery_fee }}</h2>
                         <p>
-                            <button class="btn btn-outline-success btn-lg btn-block" type="submit" value="Pay Now!" style="padding: 1em;margin-top: 2em;">
-                                <i class="fa fa-credit-card fa-2x"></i><br/><font style="font-size: 1.4em; margin-left: 0.7em">Click Here To Pay GHS {{ $grand_total }} Now</font>
+                            <button class="btn btn-success btn-lg btn-block" type="submit" value="Pay Now!" style="padding: 1em;margin-top: 2em;">
+                                <i class="fa fa-credit-card fa-2x"></i><br/><font style="font-size: 1.4em; margin-left: 0.7em">Click to Pay GHS {{  $grand_total }}</font>
                             </button>
                         </p>
                     </div>
