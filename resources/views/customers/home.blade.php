@@ -69,21 +69,23 @@
                             <div class="row">
                                 @forelse($authors as $author)
                                     <div class="col-lg-4" style="margin-bottom: 4em">
-                                        <div class="blog-images" style="height: 30em;overflow-y: scroll">
-                                            <img src="{{asset('storage')}}/{{$author->avatar}}" alt="">
-                                        </div>
-                                        <div class="blog-content">
-                                            <div class="extra">
-                                                <h2 class="name"><a href="#"
-                                                                    style="color: #212121">{{$author->name}}</a></h2>
-                                                <div class="date">Total Books : {{totalBooks($author->id)}}</div>
-                                                <div class="like">Sold : {{ books_sold($author->id) }}</div>
+                                        <a href="{{route('website-authors-books', $author->id)}}" class="read-more">
+                                            <div class="blog-images" style="height: 30em;overflow-y: scroll">
+                                                <img src="{{asset('storage')}}/{{$author->avatar}}" alt="">
                                             </div>
-                                            <div class="des">
-                                                <a href="{{route('website-authors-books', $author->id)}}"
-                                                   class="read-more">Browse Books</a>
+                                            <div class="blog-content">
+                                                <div class="extra">
+                                                    <h2 class="name"><a href="#"
+                                                                        style="color: #212121">{{$author->name}}</a></h2>
+                                                    <div class="date">Total Books : {{totalBooks($author->id)}}</div>
+                                                    <div class="like">Sold : {{ books_sold($author->id) }}</div>
+                                                </div>
+                                                <div class="des">
+                                                    <a href="{{route('website-authors-books', $author->id)}}"
+                                                    class="read-more">Browse Books</a>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </a>
                                     </div>
                                 @empty
                                     <div class="col-lg-12">

@@ -69,7 +69,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4">
                     <a class="logo" title="Magento Commerce" href="/">
-                        <img src="{{asset('website/images/ui/logo@2x.png')}}" alt="" style="width: 7em">
+                        <img src="{{asset('logo.png')}}" alt="" style="width: 6em">
                     </a>
                 </div> <!-- logo -->
                 <div class=" col-xs-12 col-sm-12 col-md-9 col-lg-8">
